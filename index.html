@@ -1,0 +1,2549 @@
+<!DOCTYPE html>
+<html lang="ru" class="scroll-smooth">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Интерактивный гид по фриланс-арбитражу</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Chosen Palette: Strict Dark (Deep charcoals/blues with muted gold/amber accents) -->
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #1c1c2c; /* Deep charcoal blue */
+            color: #e0e0e0; /* Light gray for general text */
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 300px;
+            max-height: 400px;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 400px;
+            }
+        }
+        /* Styles for active step item */
+        .step-item.active .step-circle {
+            background-color: #f59e0b; /* Amber */
+            color: white;
+            border-color: #f59e0b; /* Amber */
+        }
+        .step-item.active .step-title {
+            color: #f59e0b; /* Amber */
+            font-weight: 600;
+        }
+        /* Styles for active tab button */
+        .tab-btn.active {
+            background-color: #f59e0b; /* Amber */
+            color: white;
+        }
+        /* Fade-in animation for content sections */
+        .fade-in {
+            animation: fadeIn 0.5s ease-in-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+
+<body class="text-gray-300">
+
+    <header class="bg-gray-900/80 backdrop-blur-lg shadow-sm sticky top-0 z-50">
+        <nav class="container mx-auto px-6 py-3 flex justify-between items-center">
+            <a href="#home" class="text-xl font-bold text-amber-400">Арбитраж-Гид</a>
+            <div class="hidden md:flex space-x-6">
+                <a href="#niche-deep-dive" class="hover:text-amber-300 transition-colors">Ниша: Короткие видео</a>
+                <a href="#other-niches" class="hover:text-amber-300 transition-colors">Другие ниши</a>
+                <a href="#launch-plan" class="hover:text-amber-300 transition-colors">План запуска</a>
+                <a href="#personal-cabinet" class="hover:text-amber-300 transition-colors">Личный кабинет</a>
+            </div>
+            <div id="authControls" class="flex items-center space-x-4">
+                <div id="loggedInUser" class="hidden items-center space-x-2">
+                    <span id="userEmailDisplay" class="text-gray-300 text-sm font-medium"></span>
+                    <button id="logoutBtn" class="bg-red-700 text-white px-3 py-1 rounded-md hover:bg-red-800 transition-colors">Выйти</button>
+                </div>
+                <button id="openAuthModalBtn" class="bg-amber-500 text-white px-4 py-2 rounded-lg hover:bg-amber-600 transition-colors">Вход / Регистрация</button>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <section id="home" class="py-20 bg-gray-900">
+            <div class="container mx-auto px-6 text-center">
+                <h1 class="text-4xl md:text-5xl font-bold text-gray-100 mb-4">Мастерство Фриланс-Арбитража</h1>
+                <p class="text-lg md:text-xl text-gray-400 max-w-3xl mx-auto mb-8">Ваш интерактивный путеводитель по созданию прибыльного бизнеса на перепродаже фриланс-услуг. Откройте для себя прибыльные ниши и получите пошаговый план к успеху.</p>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-4xl mx-auto">
+                    <div class="bg-gray-800 p-6 rounded-lg shadow-sm">
+                        <h3 class="text-lg font-semibold text-gray-100 mb-2">Низкие инвестиции</h3>
+                        <p class="text-gray-400">Начните бизнес без значительного капитала, продавая услуги, выполненные другими.</p>
+                    </div>
+                    <div class="bg-gray-800 p-6 rounded-lg shadow-sm">
+                        <h3 class="text-lg font-semibold text-gray-100 mb-2">Масштабируемость</h3>
+                        <p class="text-gray-400">Легко берите больше проектов, не расширяя собственную команду.</p>
+                    </div>
+                    <div class="bg-gray-800 p-6 rounded-lg shadow-sm">
+                        <h3 class="text-lg font-semibold text-gray-100 mb-2">Гибкость</h3>
+                        <p class="text-gray-400">Предлагайте широкий спектр услуг, не будучи экспертом в каждой области.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="niche-deep-dive" class="py-20">
+            <div class="container mx-auto px-6">
+                <div class="text-center mb-12">
+                    <h2 class="text-3xl md:text-4xl font-bold text-gray-100 mb-3">Ниша №1: Золотая лихорадка коротких видео</h2>
+                    <p class="text-lg text-gray-400 max-w-3xl mx-auto">Эта секция погружает вас в самую горячую нишу для арбитража. Вы увидите, почему спрос на короткие видео (TikTok, Reels, Shorts) огромен, и какой потенциал прибыли скрывается в разнице цен между фрилансерами и агентствами.</p>
+                </div>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-16 text-center">
+                    <div class="bg-gray-800 p-6 rounded-lg shadow-md">
+                        <div id="stat1" class="text-4xl font-bold text-amber-400 mb-2">0%</div>
+                        <p class="text-gray-400">потребителей смотрят короткие видео ежедневно</p>
+                    </div>
+                    <div class="bg-gray-800 p-6 rounded-lg shadow-md">
+                        <div id="stat2" class="text-4xl font-bold text-amber-400 mb-2">0%</div>
+                        <p class="text-gray-400">всего онлайн-контента к 2025 году</p>
+                    </div>
+                    <div class="bg-gray-800 p-6 rounded-lg shadow-md">
+                        <div id="stat3" class="text-4xl font-bold text-amber-400 mb-2">$0 млрд</div>
+                        <p class="text-gray-400">доход от рекламы в коротких видео</p>
+                    </div>
+                    <div class="bg-gray-800 p-6 rounded-lg shadow-md">
+                        <div id="stat4" class="text-4xl font-bold text-amber-400 mb-2">+0%</div>
+                        <p class="text-gray-400">рост дохода для брендов с видео</p>
+                    </div>
+                </div>
+
+                <div class="bg-gray-900 p-6 md:p-8 rounded-lg shadow-lg">
+                    <h3 class="text-2xl font-bold text-center text-gray-100 mb-2">Потенциал арбитража: Стоимость vs. Цена</h3>
+                    <p class="text-center text-gray-400 mb-6">Этот график наглядно показывает вашу потенциальную прибыль. Переключайтесь между стоимостью найма фрилансера и ценой, которую вы можете выставить клиенту. Разница — это и есть ваш заработок.</p>
+                    <div class="flex justify-center space-x-4 mb-4">
+                        <button id="showCostBtn" class="bg-amber-500 text-white px-4 py-2 rounded-lg">Показать стоимость (фрилансер)</button>
+                        <button id="showPriceBtn" class="bg-gray-700 text-gray-300 px-4 py-2 rounded-lg">Показать цену (клиент)</button>
+                    </div>
+                    <div class="chart-container">
+                        <canvas id="arbitrageChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="other-niches" class="py-20 bg-gray-900">
+            <div class="container mx-auto px-6">
+                <div class="text-center mb-12">
+                    <h2 class="text-3xl md:text-4xl font-bold text-gray-100 mb-3">Расширяем горизонты: Другие прибыльные ниши</h2>
+                    <p class="text-lg text-gray-400 max-w-3xl mx-auto">Успешный арбитраж не ограничивается одной нишей. Этот раздел представляет собой интерактивную панель для исследования других высокодоходных направлений. Выберите нишу, чтобы увидеть анализ спроса, услуг и потенциальной прибыли.</p>
+                </div>
+                
+                <div class="flex flex-wrap justify-center gap-2 mb-8">
+                    <button class="tab-btn active" data-niche="web-dev">Веб-разработка</button>
+                    <button class="tab-btn" data-niche="copywriting">Копирайтинг</button>
+                    <button class="tab-btn" data-niche="design">Графический дизайн</button>
+                    <button class="tab-btn" data-niche="seo">SEO</button>
+                    <button class="tab-btn" data-niche="va">Вирт. ассистент</button>
+                </div>
+
+                <div id="niche-content" class="grid grid-cols-1 md:grid-cols-5 gap-8 bg-gray-800 p-8 rounded-lg shadow-inner min-h-[300px]">
+                </div>
+            </div>
+        </section>
+
+        <section id="launch-plan" class="py-20">
+            <div class="container mx-auto px-6">
+                <div class="text-center mb-12">
+                    <h2 class="text-3xl md:text-4xl font-bold text-gray-100 mb-3">Ваш пошаговый план запуска</h2>
+                    <p class="text-lg text-gray-400 max-w-3xl mx-auto">Превратите знания в действие. Этот интерактивный гид проведет вас через 6 ключевых этапов создания и масштабирования вашего арбитражного бизнеса. Нажимайте на каждый шаг, чтобы раскрыть подробные инструкции и советы эксперта.</p>
+                </div>
+                
+                <div class="flex flex-col md:flex-row md:space-x-8">
+                    <div id="steps-nav" class="md:w-1/3 mb-8 md:mb-0">
+                    </div>
+                    <div id="steps-content" class="md:w-2/3 bg-gray-900 p-8 rounded-lg shadow-lg">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="personal-cabinet" class="py-20">
+            <div class="container mx-auto px-6">
+                <div class="text-center mb-12">
+                    <h2 class="text-3xl md:text-4xl font-bold text-gray-100 mb-3">Ваш Личный Кабинет</h2>
+                    <p class="text-lg text-gray-400 max-w-3xl mx-auto">Здесь вы можете просматривать и управлять всеми сгенерированными и сохраненными элементами, а также управлять вашей командой и проектами.</p>
+                </div>
+                
+                <div class="bg-gray-900 p-6 md:p-8 rounded-lg shadow-lg">
+                    <p class="text-sm text-gray-400 mb-4">Ваш ID пользователя: <span id="currentUserId" class="font-mono text-amber-400">Загрузка...</span></p>
+                    
+                    <!-- Section for Saved LLM Outputs -->
+                    <h3 class="text-2xl font-bold text-gray-100 mt-8 mb-4">Сохраненные ИИ-Генерации</h3>
+                    <div id="savedItemsList" class="space-y-4">
+                        <p class="text-gray-400">Загрузка сохраненных элементов...</p>
+                    </div>
+                    <div id="savedItemsError" class="mt-4 p-2 bg-red-900 text-red-300 rounded-md hidden"></div>
+
+                    <!-- Section for User's Price List -->
+                    <h3 class="text-2xl font-bold text-gray-100 mt-12 mb-4">Ваш Прайс-Лист</h3>
+                    <div class="bg-gray-800 p-6 rounded-lg shadow-md mb-6">
+                        <h4 class="text-xl font-semibold text-amber-400 mb-4">Добавить новую услугу в прайс-лист</h4>
+                        <div class="mb-4">
+                            <label for="priceListName" class="block text-sm font-medium text-gray-300">Название услуги:</label>
+                            <input type="text" id="priceListName" class="mt-1 block w-full border border-gray-700 rounded-md shadow-sm p-2 focus:ring-amber-500 focus:border-amber-500 bg-gray-700 text-gray-100" placeholder="Например, Монтаж коротких видео (пакет Стандарт)">
+                        </div>
+                        <div class="mb-4">
+                            <label for="priceListDescription" class="block text-sm font-medium text-gray-300">Описание:</label>
+                            <textarea id="priceListDescription" rows="2" class="mt-1 block w-full border border-gray-700 rounded-md shadow-sm p-2 focus:ring-amber-500 focus:border-amber-500 bg-gray-700 text-gray-100" placeholder="Включает 5 видео в месяц, базовую цветокоррекцию, субтитры"></textarea>
+                        </div>
+                        <div class="mb-4">
+                            <label for="priceListPrice" class="block text-sm font-medium text-gray-300">Цена (USD):</label>
+                            <input type="number" id="priceListPrice" class="mt-1 block w-full border border-gray-700 rounded-md shadow-sm p-2 focus:ring-amber-500 focus:border-amber-500 bg-gray-700 text-gray-100" placeholder="1500">
+                        </div>
+                        <button id="addPriceListBtn" class="bg-amber-500 text-white px-5 py-2 rounded-lg hover:bg-amber-600 transition-colors flex items-center justify-center">
+                            <span id="addPriceListBtnText">Добавить в прайс-лист</span>
+                            <div id="addPriceListSpinner" class="hidden animate-spin rounded-full h-5 w-5 border-b-2 border-white ml-2"></div>
+                        </button>
+                        <div id="addPriceListError" class="mt-2 p-2 bg-red-900 text-red-300 rounded-md hidden"></div>
+                    </div>
+                    <div id="priceListTable" class="overflow-x-auto">
+                        <table class="min-w-full bg-gray-800 border border-gray-700 rounded-md shadow-sm">
+                            <thead>
+                                <tr class="bg-gray-800">
+                                    <th class="py-2 px-4 border-b border-gray-700 text-left text-sm font-semibold text-gray-300">Название услуги</th>
+                                    <th class="py-2 px-4 border-b border-gray-700 text-left text-sm font-semibold text-gray-300">Описание</th>
+                                    <th class="py-2 px-4 border-b border-gray-700 text-left text-sm font-semibold text-gray-300">Цена</th>
+                                    <th class="py-2 px-4 border-b border-gray-700 text-sm font-semibold text-gray-300">Действия</th>
+                                </tr>
+                            </thead>
+                            <tbody id="priceListBody">
+                                <tr><td colspan="4" class="py-4 px-4 text-center text-gray-400">Загрузка прайс-листа...</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div id="priceListError" class="mt-4 p-2 bg-red-900 text-red-300 rounded-md hidden"></div>
+
+                    <!-- Section for Performers (Исполнители) -->
+                    <h3 class="text-2xl font-bold text-gray-100 mt-12 mb-4">Ваши Исполнители</h3>
+                    <div class="bg-gray-800 p-6 rounded-lg shadow-md mb-6">
+                        <h4 class="text-xl font-semibold text-amber-400 mb-4">Добавить нового исполнителя</h4>
+                        <div class="mb-4">
+                            <label for="performerName" class="block text-sm font-medium text-gray-300">Имя:</label>
+                            <input type="text" id="performerName" class="mt-1 block w-full border border-gray-700 rounded-md shadow-sm p-2 focus:ring-amber-500 focus:border-amber-500 bg-gray-700 text-gray-100" placeholder="Иван Петров">
+                        </div>
+                        <div class="mb-4">
+                            <label for="performerSpecialization" class="block text-sm font-medium text-gray-300">Специализация:</label>
+                            <input type="text" id="performerSpecialization" class="mt-1 block w-full border border-gray-700 rounded-md shadow-sm p-2 focus:ring-amber-500 focus:border-amber-500 bg-gray-700 text-gray-100" placeholder="Монтажер видео, копирайтер">
+                        </div>
+                        <div class="mb-4">
+                            <label for="performerContact" class="block text-sm font-medium text-gray-300">Контакт (Email/Telegram):</label>
+                            <input type="text" id="performerContact" class="mt-1 block w-full border border-gray-700 rounded-md shadow-sm p-2 focus:ring-amber-500 focus:border-amber-500 bg-gray-700 text-gray-100" placeholder="ivan.petrov@example.com">
+                        </div>
+                        <div class="mb-4">
+                            <label for="performerEmploymentType" class="block text-sm font-medium text-gray-300">Тип занятости:</label>
+                            <select id="performerEmploymentType" class="mt-1 block w-full border border-gray-700 rounded-md shadow-sm p-2 focus:ring-amber-500 focus:border-amber-500 bg-gray-700 text-gray-100">
+                                <option value="">Выберите тип занятости</option>
+                                <option value="full-time">Полная занятость</option>
+                                <option value="part-time">Частичная занятость</option>
+                                <option value="project-based">Проектная работа</option>
+                            </select>
+                        </div>
+                        <div class="mb-4">
+                            <label for="performerRating" class="block text-sm font-medium text-gray-300">Рейтинг (1-5):</label>
+                            <input type="number" id="performerRating" class="mt-1 block w-full border border-gray-700 rounded-md shadow-sm p-2 focus:ring-amber-500 focus:border-amber-500 bg-gray-700 text-gray-100" min="1" max="5" placeholder="4.5">
+                        </div>
+                        <div class="mb-4">
+                            <label for="performerDeadlines" class="block text-sm font-medium text-gray-300">Типичные дедлайны:</label>
+                            <input type="text" id="performerDeadlines" class="mt-1 block w-full border border-gray-700 rounded-md shadow-sm p-2 focus:ring-amber-500 focus:border-amber-500 bg-gray-700 text-gray-100" placeholder="24-48 часов, 3 дня на проект">
+                        </div>
+                        <div class="mb-4">
+                            <label for="performerRate" class="block text-sm font-medium text-gray-300">Ставка (USD/час или за проект):</label>
+                            <input type="text" id="performerRate" class="mt-1 block w-full border border-gray-700 rounded-md shadow-sm p-2 focus:ring-amber-500 focus:border-amber-500 bg-gray-700 text-gray-100" placeholder="25/час или 100/видео">
+                        </div>
+                        <button id="addPerformerBtn" class="bg-amber-500 text-white px-5 py-2 rounded-lg hover:bg-amber-600 transition-colors flex items-center justify-center">
+                            <span id="addPerformerBtnText">Добавить исполнителя</span>
+                            <div id="addPerformerSpinner" class="hidden animate-spin rounded-full h-5 w-5 border-b-2 border-white ml-2"></div>
+                        </button>
+                        <div id="addPerformerError" class="mt-2 p-2 bg-red-900 text-red-300 rounded-md hidden"></div>
+                    </div>
+                    <div id="performersTable" class="overflow-x-auto">
+                        <table class="min-w-full bg-gray-800 border border-gray-700 rounded-md shadow-sm">
+                            <thead>
+                                <tr class="bg-gray-800">
+                                    <th class="py-2 px-4 border-b border-gray-700 text-left text-sm font-semibold text-gray-300">Имя</th>
+                                    <th class="py-2 px-4 border-b border-gray-700 text-left text-sm font-semibold text-gray-300">Специализация</th>
+                                    <th class="py-2 px-4 border-b border-gray-700 text-left text-sm font-semibold text-gray-300">Тип занятости</th>
+                                    <th class="py-2 px-4 border-b border-gray-700 text-left text-sm font-semibold text-gray-300">Рейтинг</th>
+                                    <th class="py-2 px-4 border-b border-gray-700 text-left text-sm font-semibold text-gray-300">Дедлайны</th>
+                                    <th class="py-2 px-4 border-b border-gray-700 text-left text-sm font-semibold text-gray-300">Ставка</th>
+                                    <th class="py-2 px-4 border-b border-gray-700 text-sm font-semibold text-gray-300">Действия</th>
+                                </tr>
+                            </thead>
+                            <tbody id="performersBody">
+                                <tr><td colspan="7" class="py-4 px-4 text-center text-gray-400">Загрузка исполнителей...</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div id="performersError" class="mt-4 p-2 bg-red-900 text-red-300 rounded-md hidden"></div>
+
+                    <!-- Section for Completed Works (Проделанные работы) -->
+                    <h3 class="text-2xl font-bold text-gray-100 mt-12 mb-4">Проделанные Работы</h3>
+                    <div class="bg-gray-800 p-6 rounded-lg shadow-md mb-6">
+                        <h4 class="text-xl font-semibold text-amber-400 mb-4">Добавить выполненную работу</h4>
+                        <div class="mb-4">
+                            <label for="workProjectName" class="block text-sm font-medium text-gray-300">Название проекта:</label>
+                            <input type="text" id="workProjectName" class="mt-1 block w-full border border-gray-700 rounded-md shadow-sm p-2 focus:ring-amber-500 focus:border-amber-500 bg-gray-700 text-gray-100" placeholder="Видеокампания для бренда X">
+                        </div>
+                        <div class="mb-4">
+                            <label for="workClientName" class="block text-sm font-medium text-gray-300">Клиент:</label>
+                            <input type="text" id="workClientName" class="mt-1 block w-full border border-gray-700 rounded-md shadow-sm p-2 focus:ring-amber-500 focus:border-amber-500 bg-gray-700 text-gray-100" placeholder="ООО 'Альфа'">
+                        </div>
+                        <div class="mb-4">
+                            <label for="workServiceType" class="block text-sm font-medium text-gray-300">Тип услуги:</label>
+                            <input type="text" id="workServiceType" class="mt-1 block w-full border border-gray-700 rounded-md shadow-sm p-2 focus:ring-amber-500 focus:border-amber-500 bg-gray-700 text-gray-100" placeholder="Монтаж видео">
+                        </div>
+                        <div class="mb-4">
+                            <label for="workDateCompleted" class="block text-sm font-medium text-gray-300">Дата завершения:</label>
+                            <input type="date" id="workDateCompleted" class="mt-1 block w-full border border-gray-700 rounded-md shadow-sm p-2 focus:ring-amber-500 focus:border-amber-500 bg-gray-700 text-gray-100">
+                        </div>
+                        <div class="mb-4">
+                            <label for="workCostPaid" class="block text-sm font-medium text-gray-300">Затраты на исполнителя (USD):</label>
+                            <input type="number" id="workCostPaid" class="mt-1 block w-full border border-gray-700 rounded-md shadow-sm p-2 focus:ring-amber-500 focus:border-amber-500 bg-gray-700 text-gray-100" placeholder="200">
+                        </div>
+                        <div class="mb-4">
+                            <label for="workPriceCharged" class="block text-sm font-medium text-gray-300">Цена для клиента (USD):</label>
+                            <input type="number" id="workPriceCharged" class="mt-1 block w-full border border-gray-700 rounded-md shadow-sm p-2 focus:ring-amber-500 focus:border-amber-500 bg-gray-700 text-gray-100" placeholder="800">
+                        </div>
+                        <button id="addWorkBtn" class="bg-amber-500 text-white px-5 py-2 rounded-lg hover:bg-amber-600 transition-colors flex items-center justify-center">
+                            <span id="addWorkBtnText">Добавить работу</span>
+                            <div id="addWorkSpinner" class="hidden animate-spin rounded-full h-5 w-5 border-b-2 border-white ml-2"></div>
+                        </button>
+                        <div id="addWorkError" class="mt-2 p-2 bg-red-900 text-red-300 rounded-md hidden"></div>
+                    </div>
+                    <div id="completedWorksTable" class="overflow-x-auto">
+                        <table class="min-w-full bg-gray-800 border border-gray-700 rounded-md shadow-sm">
+                            <thead>
+                                <tr class="bg-gray-800">
+                                    <th class="py-2 px-4 border-b border-gray-700 text-left text-sm font-semibold text-gray-300">Проект</th>
+                                    <th class="py-2 px-4 border-b border-gray-700 text-left text-sm font-semibold text-gray-300">Клиент</th>
+                                    <th class="py-2 px-4 border-b border-gray-700 text-left text-sm font-semibold text-gray-300">Услуга</th>
+                                    <th class="py-2 px-4 border-b border-gray-700 text-left text-sm font-semibold text-gray-300">Дата</th>
+                                    <th class="py-2 px-4 border-b border-gray-700 text-left text-sm font-semibold text-gray-300">Затраты</th>
+                                    <th class="py-2 px-4 border-b border-gray-700 text-left text-sm font-semibold text-gray-300">Цена</th>
+                                    <th class="py-2 px-4 border-b border-gray-700 text-left text-sm font-semibold text-gray-300">Прибыль</th>
+                                    <th class="py-2 px-4 border-b border-gray-700 text-sm font-semibold text-gray-300">Действия</th>
+                                </tr>
+                            </thead>
+                            <tbody id="completedWorksBody">
+                                <tr><td colspan="8" class="py-4 px-4 text-center text-gray-400">Загрузка выполненных работ...</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div id="completedWorksError" class="mt-4 p-2 bg-red-900 text-red-300 rounded-md hidden"></div>
+
+                    <!-- Section for User's Occupancy/Availability -->
+                    <h3 class="text-2xl font-bold text-gray-100 mt-12 mb-4">Ваша Занятость/Статус</h3>
+                    <div class="bg-gray-800 p-6 rounded-lg shadow-md mb-6">
+                        <h4 class="text-xl font-semibold text-amber-400 mb-4">Обновить статус занятости</h4>
+                        <div class="mb-4">
+                            <label for="availabilityStatus" class="block text-sm font-medium text-gray-300">Ваш текущий статус/занятость:</label>
+                            <input type="text" id="availabilityStatus" class="mt-1 block w-full border border-gray-700 rounded-md shadow-sm p-2 focus:ring-amber-500 focus:border-amber-500 bg-gray-700 text-gray-100" placeholder="Например, Доступен для новых проектов с 1 июля, Занят до конца месяца">
+                        </div>
+                        <button id="updateAvailabilityBtn" class="bg-amber-500 text-white px-5 py-2 rounded-lg hover:bg-amber-600 transition-colors flex items-center justify-center">
+                            <span id="updateAvailabilityBtnText">Обновить статус</span>
+                            <div id="updateAvailabilitySpinner" class="hidden animate-spin rounded-full h-5 w-5 border-b-2 border-white ml-2"></div>
+                        </button>
+                        <div id="updateAvailabilityError" class="mt-2 p-2 bg-red-900 text-red-300 rounded-md hidden"></div>
+                    </div>
+                    <div id="currentAvailability" class="p-4 bg-gray-800 border border-gray-700 rounded-md shadow-sm text-gray-300">
+                        <p class="font-semibold mb-2">Текущий статус:</p>
+                        <p id="displayAvailability">Загрузка статуса...</p>
+                    </div>
+                    <div id="availabilityLoadError" class="mt-4 p-2 bg-red-900 text-red-300 rounded-md hidden"></div>
+
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="bg-gray-900 text-white mt-20">
+        <div class="container mx-auto px-6 py-8 text-center">
+            <p>&copy; 2025 Арбитраж-Гид. Создано, чтобы помочь вам достичь успеха.</p>
+            <p class="text-sm text-gray-600 mt-2">Вся информация основана на анализе рынка и экспертном опыте.</p>
+        </div>
+    </footer>
+
+    <!-- Login/Registration Modal Structure -->
+    <div id="authModal" class="fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center hidden z-[999]">
+        <div class="bg-gray-800 p-8 rounded-lg shadow-xl max-w-sm w-full mx-4 relative">
+            <button id="closeAuthModal" class="absolute top-3 right-3 text-gray-400 hover:text-gray-100 text-2xl font-bold">&times;</button>
+            <h3 id="authTitle" class="text-2xl font-bold text-gray-100 mb-6 text-center">Вход / Регистрация</h3>
+            
+            <div class="mb-4">
+                <label for="authEmail" class="block text-sm font-medium text-gray-300 mb-1">Email:</label>
+                <input type="email" id="authEmail" class="mt-1 block w-full border border-gray-700 rounded-md shadow-sm p-2 focus:ring-amber-500 focus:border-amber-500 bg-gray-700 text-gray-100" placeholder="ваш@email.com">
+            </div>
+            <div class="mb-6">
+                <label for="authPassword" class="block text-sm font-medium text-gray-300 mb-1">Пароль:</label>
+                <input type="password" id="authPassword" class="mt-1 block w-full border border-gray-700 rounded-md shadow-sm p-2 focus:ring-amber-500 focus:border-amber-500 bg-gray-700 text-gray-100" placeholder="минимум 6 символов">
+            </div>
+
+            <button id="loginBtn" class="bg-amber-500 text-white px-5 py-2 rounded-lg hover:bg-amber-600 transition-colors w-full mb-3 flex items-center justify-center">
+                <span id="loginBtnText">Войти</span>
+                <div id="loginSpinner" class="hidden animate-spin rounded-full h-5 w-5 border-b-2 border-white ml-2"></div>
+            </button>
+            <button id="registerBtn" class="bg-gray-700 text-gray-300 px-5 py-2 rounded-lg hover:bg-gray-600 transition-colors w-full mb-4 flex items-center justify-center">
+                <span id="registerBtnText">Зарегистрироваться</span>
+                <div id="registerSpinner" class="hidden animate-spin rounded-full h-5 w-5 border-b-2 border-gray-300 ml-2"></div>
+            </button>
+
+            <p id="authMessage" class="text-center text-sm text-red-300 hidden mt-4"></p>
+        </div>
+    </div>
+
+
+    <script type="module">
+        // Firebase imports
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+        import { getAuth, signInAnonymously, signInWithCustomToken, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+        import { getFirestore, collection, addDoc, query, orderBy, onSnapshot, deleteDoc, doc, setDoc } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+
+        // Global Firebase instances (will be initialized later)
+        let app;
+        let db;
+        let auth;
+        let currentUserId = 'Загрузка...'; // Default loading state for user ID
+        let appId; // Global variable for appId
+        let isAuthReady = false; // Flag to indicate if initial auth state has been checked
+
+        document.addEventListener('DOMContentLoaded', async function () {
+            // Initialize Firebase App
+            const firebaseConfig = typeof __firebase_config !== 'undefined' ? JSON.parse(__firebase_config) : {};
+            appId = typeof __app_id !== 'undefined' ? __app_id : 'default-app-id'; // Use default-app-id if not defined in env
+
+            if (Object.keys(firebaseConfig).length > 0) {
+                app = initializeApp(firebaseConfig);
+                db = getFirestore(app);
+                auth = getAuth(app);
+
+                // UI Elements for Auth
+                const authModal = document.getElementById('authModal');
+                const openAuthModalBtn = document.getElementById('openAuthModalBtn');
+                const closeAuthModal = document.getElementById('closeAuthModal');
+                const authEmail = document.getElementById('authEmail');
+                const authPassword = document.getElementById('authPassword');
+                const loginBtn = document.getElementById('loginBtn');
+                const registerBtn = document.getElementById('registerBtn');
+                const authMessage = document.getElementById('authMessage');
+                const loggedInUserDiv = document.getElementById('loggedInUser');
+                const userEmailDisplay = document.getElementById('userEmailDisplay');
+                const logoutBtn = document.getElementById('logoutBtn');
+                const loginSpinner = document.getElementById('loginSpinner');
+                const registerSpinner = document.getElementById('registerSpinner');
+                const loginBtnText = document.getElementById('loginBtnText');
+                const registerBtnText = document.getElementById('registerBtnText');
+
+
+                openAuthModalBtn.addEventListener('click', () => authModal.classList.remove('hidden'));
+                closeAuthModal.addEventListener('click', () => {
+                    authModal.classList.add('hidden');
+                    authMessage.classList.add('hidden'); // Clear message on close
+                });
+
+                // Login
+                loginBtn.addEventListener('click', async () => {
+                    const email = authEmail.value;
+                    const password = authPassword.value;
+                    authMessage.classList.add('hidden');
+                    loginSpinner.classList.remove('hidden');
+                    loginBtnText.textContent = 'Вход...';
+
+                    if (!email || !password) {
+                        authMessage.textContent = 'Пожалуйста, введите email и пароль.';
+                        authMessage.classList.remove('hidden');
+                        loginSpinner.classList.add('hidden');
+                        loginBtnText.textContent = 'Войти';
+                        return;
+                    }
+
+                    try {
+                        await signInWithEmailAndPassword(auth, email, password);
+                        authModal.classList.add('hidden'); // Close modal on success
+                        authEmail.value = ''; // Clear fields
+                        authPassword.value = '';
+                    } catch (error) {
+                        console.error("Ошибка входа:", error);
+                        let message = 'Ошибка входа.';
+                        if (error.code === 'auth/invalid-credential') {
+                            message = 'Неверный email или пароль.';
+                        } else if (error.code === 'auth/user-not-found' || error.code === 'auth/wrong-password') {
+                            message = 'Неверный email или пароль.';
+                        } else if (error.code === 'auth/too-many-requests') {
+                            message = 'Слишком много попыток входа. Попробуйте позже.';
+                        }
+                        authMessage.textContent = message;
+                        authMessage.classList.remove('hidden');
+                    } finally {
+                        loginSpinner.classList.add('hidden');
+                        loginBtnText.textContent = 'Войти';
+                    }
+                });
+
+                // Register
+                registerBtn.addEventListener('click', async () => {
+                    const email = authEmail.value;
+                    const password = authPassword.value;
+                    authMessage.classList.add('hidden');
+                    registerSpinner.classList.remove('hidden');
+                    registerBtnText.textContent = 'Регистрация...';
+
+                    if (!email || !password) {
+                        authMessage.textContent = 'Пожалуйста, введите email и пароль.';
+                        authMessage.classList.remove('hidden');
+                        registerSpinner.classList.add('hidden');
+                        registerBtnText.textContent = 'Зарегистрироваться';
+                        return;
+                    }
+                    if (password.length < 6) {
+                        authMessage.textContent = 'Пароль должен быть не менее 6 символов.';
+                        authMessage.classList.remove('hidden');
+                        registerSpinner.classList.add('hidden');
+                        registerBtnText.textContent = 'Зарегистрироваться';
+                        return;
+                    }
+
+                    try {
+                        await createUserWithEmailAndPassword(auth, email, password);
+                        authModal.classList.add('hidden'); // Close modal on success
+                        authEmail.value = ''; // Clear fields
+                        authPassword.value = '';
+                    } catch (error) {
+                        console.error("Ошибка регистрации:", error);
+                        let message = 'Ошибка регистрации.';
+                        if (error.code === 'auth/email-already-in-use') {
+                            message = 'Этот email уже используется.';
+                        } else if (error.code === 'auth/weak-password') {
+                            message = 'Пароль слишком слабый.';
+                        }
+                        authMessage.textContent = message;
+                        authMessage.classList.remove('hidden');
+                    } finally {
+                        registerSpinner.classList.add('hidden');
+                        registerBtnText.textContent = 'Зарегистрироваться';
+                    }
+                });
+
+                // Logout
+                logoutBtn.addEventListener('click', async () => {
+                    try {
+                        await signOut(auth);
+                        // onAuthStateChanged will handle UI updates
+                    } catch (error) {
+                        console.error("Ошибка выхода:", error);
+                        // In a real app, use a custom modal for errors instead of alert
+                        console.log("Не удалось выйти: " + error.message); 
+                    }
+                });
+
+
+                // Authentication state listener
+                onAuthStateChanged(auth, async (user) => {
+                    isAuthReady = true; // Mark auth as ready
+
+                    if (user) {
+                        currentUserId = user.uid;
+                        userEmailDisplay.textContent = user.email || 'Анонимный Пользователь';
+                        loggedInUserDiv.classList.remove('hidden');
+                        loggedInUserDiv.classList.add('flex'); // Show user info
+                        openAuthModalBtn.classList.add('hidden'); // Hide login/register button
+                        
+                        document.getElementById('currentUserId').textContent = currentUserId; // Update ID in personal cabinet
+
+                        // Load all personal cabinet data once authenticated
+                        loadSavedItems(appId, currentUserId);
+                        loadPriceList(appId, currentUserId);
+                        loadPerformers(appId, currentUserId); // Load performers data
+                        loadCompletedWorks(appId, currentUserId);
+                        loadAvailability(appId, currentUserId);
+                    } else {
+                        // User is signed out or not authenticated yet
+                        loggedInUserDiv.classList.add('hidden');
+                        loggedInUserDiv.classList.remove('flex');
+                        openAuthModalBtn.classList.remove('hidden'); // Show login/register button
+
+                        // If not explicitly signed in (or was anonymous and then signed out), try anonymous sign-in
+                        try {
+                            if (typeof __initial_auth_token !== 'undefined' && __initial_auth_token) {
+                                const cred = await signInWithCustomToken(auth, __initial_auth_token);
+                                currentUserId = cred.user.uid;
+                                userEmailDisplay.textContent = cred.user.email || 'Анонимный Пользователь';
+                                loggedInUserDiv.classList.remove('hidden');
+                                loggedInUserDiv.classList.add('flex');
+                                openAuthModalBtn.classList.add('hidden');
+                                document.getElementById('currentUserId').textContent = currentUserId;
+
+                                loadSavedItems(appId, currentUserId);
+                                loadPriceList(appId, currentUserId);
+                                loadPerformers(appId, currentUserId); // Load performers data
+                                loadCompletedWorks(appId, currentUserId);
+                                loadAvailability(appId, currentUserId);
+
+                            } else if (auth.currentUser === null) { // Only sign in anonymously if no one is signed in
+                                const cred = await signInAnonymously(auth);
+                                currentUserId = cred.user.uid;
+                                userEmailDisplay.textContent = 'Анонимный Пользователь';
+                                loggedInUserDiv.classList.remove('hidden');
+                                loggedInUserDiv.classList.add('flex');
+                                openAuthModalBtn.classList.add('hidden');
+                                document.getElementById('currentUserId').textContent = currentUserId;
+
+                                loadSavedItems(appId, currentUserId);
+                                loadPriceList(appId, currentUserId);
+                                loadPerformers(appId, currentUserId); // Load performers data
+                                loadCompletedWorks(appId, currentUserId);
+                                loadAvailability(appId, currentUserId);
+                            }
+                        } catch (error) {
+                            console.error("Ошибка анонимной аутентификации:", error);
+                            document.getElementById('currentUserId').textContent = 'Недоступно (Ошибка аутентификации)';
+                            // Display error for personal cabinet sections
+                            document.getElementById('savedItemsList').innerHTML = '<p class="text-red-300">Не удалось загрузить данные: Ошибка аутентификации.</p>';
+                            document.getElementById('priceListBody').innerHTML = '<tr><td colspan="4" class="py-4 px-4 text-center text-red-300">Не удалось загрузить прайс-лист.</td></tr>';
+                            document.getElementById('performersBody').innerHTML = '<tr><td colspan="7" class="py-4 px-4 text-center text-red-300">Не удалось загрузить исполнителей.</td></tr>';
+                            document.getElementById('completedWorksBody').innerHTML = '<tr><td colspan="8" class="py-4 px-4 text-center text-red-300">Не удалось загрузить выполненные работы.</td></tr>';
+                            document.getElementById('displayAvailability').textContent = 'Не удалось загрузить статус занятости.';
+                        }
+                    }
+                });
+            } else {
+                console.error("Firebase config не доступен. Личный кабинет и аутентификация будут недоступны.");
+                document.getElementById('savedItemsList').innerHTML = '<p class="text-red-300">Личный кабинет недоступен: Firebase не настроен.</p>';
+                document.getElementById('currentUserId').textContent = 'Недоступно (Без Firebase)';
+                // Hide authentication controls and all personal cabinet sections if Firebase is not available
+                document.getElementById('authControls').classList.add('hidden');
+                document.getElementById('personal-cabinet').querySelectorAll('h3, .bg-gray-800').forEach(el => el.classList.add('hidden'));
+                isAuthReady = true; // Mark as ready even without Firebase to unblock other JS if any
+            }
+
+            // Function to save an item to Firestore (for LLM outputs)
+            async function saveItemToFirestore(itemType, itemContent, outputElement, errorElement, spinnerElement, buttonTextElement) {
+                if (!db || !currentUserId || currentUserId === 'Загрузка...') {
+                    errorElement.textContent = 'Ошибка: Пользователь не аутентифицирован или Firebase не инициализирован.';
+                    errorElement.classList.remove('hidden');
+                    return;
+                }
+
+                spinnerElement.classList.remove('hidden');
+                buttonTextElement.textContent = 'Сохраняем...';
+                errorElement.classList.add('hidden'); // Hide previous errors
+
+                try {
+                    await addDoc(collection(db, 'artifacts', appId, 'users', currentUserId, 'saved_llm_outputs'), {
+                        type: itemType,
+                        content: itemContent,
+                        timestamp: new Date()
+                    });
+                    // Optionally, provide visual feedback for success
+                    outputElement.innerHTML += '<p class="text-sm text-green-400 mt-2">Сохранено в личном кабинете!</p>';
+                } catch (e) {
+                    console.error("Error adding document: ", e);
+                    errorElement.textContent = `Ошибка сохранения: ${e.message}`;
+                    errorElement.classList.remove('hidden');
+                } finally {
+                    spinnerElement.classList.add('hidden');
+                    // Reset button text based on its original function
+                    if (itemType === 'service_expansion_ideas') document.getElementById('expansionBtnText').textContent = 'Сгенерировать идеи ✨';
+                    else if (itemType === 'pitch') document.getElementById('pitchBtnText').textContent = 'Сгенерировать питч ✨';
+                    else if (itemType === 'project_scope') document.getElementById('scopeBtnText').textContent = 'Сгенерировать бриф ✨';
+                    else if (itemType === 'quality_checklist') document.getElementById('checklistBtnText').textContent = 'Сгенерировать чек-лист ✨';
+                    else if (itemType === 'interview_questions') document.getElementById('interviewBtnText').textContent = 'Сгенерировать вопросы ✨';
+                    else if (itemType === 'contract_clause') document.getElementById('clauseBtnText').textContent = 'Сгенерировать положение ✨';
+                    else if (itemType === 'social_media_content_ideas') document.getElementById('contentBtnText').textContent = 'Сгенерировать идеи ✨';
+                    else if (itemType === 'payment_reminder') document.getElementById('reminderBtnText').textContent = 'Сгенерировать напоминание ✨';
+                    else if (itemType === 'market_trends') document.getElementById('trendsBtnText').textContent = 'Найти тренды ✨';
+                    else if (itemType === 'client_response') document.getElementById('clientResponseBtnText').textContent = 'Сгенерировать ответ ✨';
+                    else if (itemType === 'project_risk_assessment') document.getElementById('riskAssessBtnText').textContent = 'Оценить риски ✨';
+                }
+            }
+
+            // Function to load saved LLM outputs from Firestore and display them
+            function loadSavedItems(appId, userId) {
+                const savedItemsList = document.getElementById('savedItemsList');
+                const savedItemsError = document.getElementById('savedItemsError');
+                savedItemsList.innerHTML = '<p class="text-gray-400">Загрузка сохраненных элементов...</p>'; // Loading indicator
+
+                if (!db || !userId || userId === 'Загрузка...') {
+                    savedItemsList.innerHTML = '<p class="text-red-300">Не удалось загрузить: Пользователь не аутентифицирован или Firebase не инициализирован.</p>';
+                    return;
+                }
+
+                try {
+                    const q = query(collection(db, 'artifacts', appId, 'users', userId, 'saved_llm_outputs'), orderBy('timestamp', 'desc'));
+                    onSnapshot(q, (snapshot) => {
+                        savedItemsList.innerHTML = ''; // Clear previous items
+                        if (snapshot.empty) {
+                            savedItemsList.innerHTML = '<p class="text-gray-400">У вас пока нет сохраненных элементов.</p>';
+                            return;
+                        }
+                        snapshot.forEach((docSnap) => {
+                            const data = docSnap.data();
+                            const itemDiv = document.createElement('div');
+                            itemDiv.className = 'bg-gray-800 p-4 rounded-md shadow-sm border border-gray-700';
+                            const date = data.timestamp ? new Date(data.timestamp.toDate()).toLocaleString() : 'N/A';
+                            
+                            itemDiv.innerHTML = `
+                                <div class="flex justify-between items-center mb-2">
+                                    <h4 class="font-semibold text-gray-100">${data.type.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase())}</h4>
+                                    <button class="delete-item-btn bg-red-900 text-red-300 px-3 py-1 rounded-full text-sm hover:bg-red-800 transition-colors" data-id="${docSnap.id}" data-collection="saved_llm_outputs">Удалить</button>
+                                </div>
+                                <pre class="text-sm text-gray-300 whitespace-pre-wrap break-words p-2 bg-gray-700 rounded border border-gray-600">${data.content}</pre>
+                                <p class="text-xs text-gray-500 mt-2">Сохранено: ${date}</p>
+                            `;
+                            savedItemsList.appendChild(itemDiv);
+                        });
+
+                        // Attach delete listeners
+                        attachDeleteListeners();
+                    }, (error) => {
+                        console.error("Error fetching saved items:", error);
+                        savedItemsError.textContent = 'Ошибка загрузки сохраненных элементов: ' + error.message;
+                        savedItemsError.classList.remove('hidden');
+                    });
+                } catch (error) {
+                    console.error("Error setting up onSnapshot for saved items:", error);
+                    savedItemsError.textContent = 'Ошибка при загрузке: ' + error.message;
+                    savedItemsError.classList.remove('hidden');
+                }
+            }
+
+            // Centralized delete function
+            async function deleteItem(itemId, collectionName, errorElement) {
+                if (!db || !currentUserId || currentUserId === 'Загрузка...') {
+                    errorElement.textContent = 'Ошибка: Пользователь не аутентифицирован или Firebase не инициализирован.';
+                    errorElement.classList.remove('hidden');
+                    return;
+                }
+                // Using a custom confirm dialog would be better than window.confirm
+                if (window.confirm('Вы уверены, что хотите удалить этот элемент?')) {
+                    try {
+                        await deleteDoc(doc(db, 'artifacts', appId, 'users', currentUserId, collectionName, itemId));
+                        console.log(`Элемент из коллекции ${collectionName} успешно удален!`);
+                    } catch (error) {
+                        console.error(`Ошибка при удалении элемента из ${collectionName}:`, error);
+                        errorElement.textContent = 'Ошибка при удалении: ' + error.message;
+                        errorElement.classList.remove('hidden');
+                    }
+                }
+            }
+
+            // Function to attach delete listeners to all delete buttons
+            function attachDeleteListeners() {
+                document.querySelectorAll('.delete-item-btn').forEach(button => {
+                    // Remove existing listeners to prevent duplicates
+                    button.removeEventListener('click', handleDeleteButtonClick);
+                    button.addEventListener('click', handleDeleteButtonClick);
+                });
+            }
+
+            function handleDeleteButtonClick(e) {
+                const itemId = e.target.dataset.id;
+                const collectionName = e.target.dataset.collection;
+                // Get the specific error element for the section, or a general one
+                const errorElementId = collectionName === 'saved_llm_outputs' ? 'savedItemsError' :
+                                       collectionName === 'price_list' ? 'priceListError' :
+                                       collectionName === 'performers' ? 'performersError' :
+                                       collectionName === 'completed_works' ? 'completedWorksError' :
+                                       'generalError'; // Fallback
+                const errorElement = document.getElementById(errorElementId);
+                deleteItem(itemId, collectionName, errorElement);
+            }
+
+
+            // --- Price List Functions ---
+            document.getElementById('addPriceListBtn').addEventListener('click', async () => {
+                const name = document.getElementById('priceListName').value;
+                const description = document.getElementById('priceListDescription').value;
+                const price = parseFloat(document.getElementById('priceListPrice').value);
+                const errorElement = document.getElementById('addPriceListError');
+                const spinnerElement = document.getElementById('addPriceListSpinner');
+                const buttonTextElement = document.getElementById('addPriceListBtnText');
+
+                errorElement.classList.add('hidden');
+                spinnerElement.classList.remove('hidden');
+                buttonTextElement.textContent = 'Добавляем...';
+
+                if (!name || !description || isNaN(price)) {
+                    errorElement.textContent = 'Пожалуйста, заполните все поля прайс-листа корректно.';
+                    errorElement.classList.remove('hidden');
+                    spinnerElement.classList.add('hidden');
+                    buttonTextElement.textContent = 'Добавить в прайс-лист';
+                    return;
+                }
+
+                if (!db || !currentUserId || currentUserId === 'Загрузка...') {
+                    errorElement.textContent = 'Ошибка: Пользователь не аутентифицирован или Firebase не инициализирован.';
+                    errorElement.classList.remove('hidden');
+                    spinnerElement.classList.add('hidden');
+                    buttonTextElement.textContent = 'Добавить в прайс-лист';
+                    return;
+                }
+
+                try {
+                    await addDoc(collection(db, 'artifacts', appId, 'users', currentUserId, 'price_list'), {
+                        name,
+                        description,
+                        price,
+                        timestamp: new Date()
+                    });
+                    document.getElementById('priceListName').value = '';
+                    document.getElementById('priceListDescription').value = '';
+                    document.getElementById('priceListPrice').value = '';
+                } catch (e) {
+                    console.error("Error adding price list item: ", e);
+                    errorElement.textContent = `Ошибка добавления: ${e.message}`;
+                    errorElement.classList.remove('hidden');
+                } finally {
+                    spinnerElement.classList.add('hidden');
+                    buttonTextElement.textContent = 'Добавить в прайс-лист';
+                }
+            });
+
+            function loadPriceList(appId, userId) {
+                const priceListBody = document.getElementById('priceListBody');
+                const priceListError = document.getElementById('priceListError');
+                priceListBody.innerHTML = '<tr><td colspan="4" class="py-4 px-4 text-center text-gray-400">Загрузка прайс-листа...</td></tr>';
+
+                if (!db || !userId || userId === 'Загрузка...') {
+                    priceListBody.innerHTML = '<tr><td colspan="4" class="py-4 px-4 text-center text-red-300">Не удалось загрузить прайс-лист.</td></tr>';
+                    return;
+                }
+
+                try {
+                    const q = query(collection(db, 'artifacts', appId, 'users', userId, 'price_list'), orderBy('timestamp', 'desc'));
+                    onSnapshot(q, (snapshot) => {
+                        priceListBody.innerHTML = '';
+                        if (snapshot.empty) {
+                            priceListBody.innerHTML = '<tr><td colspan="4" class="py-4 px-4 text-center text-gray-400">Ваш прайс-лист пуст.</td></tr>';
+                            return;
+                        }
+                        snapshot.forEach((docSnap) => {
+                            const data = docSnap.data();
+                            const row = priceListBody.insertRow();
+                            row.innerHTML = `
+                                <td class="py-2 px-4 border-b border-gray-700 text-gray-300">${data.name}</td>
+                                <td class="py-2 px-4 border-b border-gray-700 text-gray-300">${data.description}</td>
+                                <td class="py-2 px-4 border-b border-gray-700 text-gray-300">$${data.price.toFixed(2)}</td>
+                                <td class="py-2 px-4 border-b border-gray-700 text-center">
+                                    <button class="delete-item-btn bg-red-900 text-red-300 px-3 py-1 rounded-full text-sm hover:bg-red-800 transition-colors" data-id="${docSnap.id}" data-collection="price_list">Удалить</button>
+                                </td>
+                            `;
+                        });
+                        attachDeleteListeners();
+                    }, (error) => {
+                        console.error("Error fetching price list:", error);
+                        priceListError.textContent = 'Ошибка загрузки прайс-листа: ' + error.message;
+                        priceListError.classList.remove('hidden');
+                    });
+                } catch (error) {
+                    console.error("Error setting up onSnapshot for price list:", error);
+                    priceListError.textContent = 'Ошибка при загрузке: ' + error.message;
+                    priceListError.classList.remove('hidden');
+                }
+            }
+
+            // --- Performers Functions ---
+            document.getElementById('addPerformerBtn').addEventListener('click', async () => {
+                const name = document.getElementById('performerName').value;
+                const specialization = document.getElementById('performerSpecialization').value;
+                const contact = document.getElementById('performerContact').value;
+                const employmentType = document.getElementById('performerEmploymentType').value;
+                const rating = document.getElementById('performerRating').value;
+                const deadlines = document.getElementById('performerDeadlines').value;
+                const rate = document.getElementById('performerRate').value;
+                
+                const errorElement = document.getElementById('addPerformerError');
+                const spinnerElement = document.getElementById('addPerformerSpinner');
+                const buttonTextElement = document.getElementById('addPerformerBtnText');
+
+                errorElement.classList.add('hidden');
+                spinnerElement.classList.remove('hidden');
+                buttonTextElement.textContent = 'Добавляем...';
+
+                if (!name || !specialization || !contact || !employmentType || !rating || !deadlines || !rate) {
+                    errorElement.textContent = 'Пожалуйста, заполните все поля исполнителя.';
+                    errorElement.classList.remove('hidden');
+                    spinnerElement.classList.add('hidden');
+                    buttonTextElement.textContent = 'Добавить исполнителя';
+                    return;
+                }
+
+                if (!db || !currentUserId || currentUserId === 'Загрузка...') {
+                    errorElement.textContent = 'Ошибка: Пользователь не аутентифицирован или Firebase не инициализирован.';
+                    errorElement.classList.remove('hidden');
+                    spinnerElement.classList.add('hidden');
+                    buttonTextElement.textContent = 'Добавить исполнителя';
+                    return;
+                }
+
+                try {
+                    await addDoc(collection(db, 'artifacts', appId, 'users', currentUserId, 'performers'), {
+                        name,
+                        specialization,
+                        contact,
+                        employmentType,
+                        rating: parseFloat(rating), // Convert rating to number
+                        deadlines,
+                        rate,
+                        timestamp: new Date()
+                    });
+                    document.getElementById('performerName').value = '';
+                    document.getElementById('performerSpecialization').value = '';
+                    document.getElementById('performerContact').value = '';
+                    document.getElementById('performerEmploymentType').value = ''; // Clear select
+                    document.getElementById('performerRating').value = '';
+                    document.getElementById('performerDeadlines').value = '';
+                    document.getElementById('performerRate').value = '';
+                } catch (e) {
+                    console.error("Error adding performer: ", e);
+                    errorElement.textContent = `Ошибка добавления: ${e.message}`;
+                    errorElement.classList.remove('hidden');
+                } finally {
+                    spinnerElement.classList.add('hidden');
+                    buttonTextElement.textContent = 'Добавить исполнителя';
+                }
+            });
+
+            function loadPerformers(appId, userId) {
+                const performersBody = document.getElementById('performersBody');
+                const performersError = document.getElementById('performersError');
+                performersBody.innerHTML = '<tr><td colspan="7" class="py-4 px-4 text-center text-gray-400">Загрузка исполнителей...</td></tr>';
+
+                if (!db || !userId || userId === 'Загрузка...') {
+                    performersBody.innerHTML = '<tr><td colspan="7" class="py-4 px-4 text-center text-red-300">Не удалось загрузить исполнителей.</td></tr>';
+                    return;
+                }
+
+                try {
+                    const q = query(collection(db, 'artifacts', appId, 'users', userId, 'performers'), orderBy('timestamp', 'desc'));
+                    onSnapshot(q, (snapshot) => {
+                        performersBody.innerHTML = '';
+                        if (snapshot.empty) {
+                            performersBody.innerHTML = '<tr><td colspan="7" class="py-4 px-4 text-center text-gray-400">Список исполнителей пуст.</td></tr>';
+                            return;
+                        }
+                        snapshot.forEach((docSnap) => {
+                            const data = docSnap.data();
+                            const row = performersBody.insertRow();
+                            row.innerHTML = `
+                                <td class="py-2 px-4 border-b border-gray-700 text-gray-300">${data.name}</td>
+                                <td class="py-2 px-4 border-b border-gray-700 text-gray-300">${data.specialization}</td>
+                                <td class="py-2 px-4 border-b border-gray-700 text-gray-300">${data.employmentType || 'N/A'}</td>
+                                <td class="py-2 px-4 border-b border-gray-700 text-gray-300">${data.rating || 'N/A'}</td>
+                                <td class="py-2 px-4 border-b border-gray-700 text-gray-300">${data.deadlines || 'N/A'}</td>
+                                <td class="py-2 px-4 border-b border-gray-700 text-gray-300">${data.rate}</td>
+                                <td class="py-2 px-4 border-b border-gray-700 text-center">
+                                    <button class="delete-item-btn bg-red-900 text-red-300 px-3 py-1 rounded-full text-sm hover:bg-red-800 transition-colors" data-id="${docSnap.id}" data-collection="performers">Удалить</button>
+                                </td>
+                            `;
+                        });
+                        attachDeleteListeners();
+                    }, (error) => {
+                        console.error("Error fetching performers:", error);
+                        performersError.textContent = 'Ошибка загрузки исполнителей: ' + error.message;
+                        performersError.classList.remove('hidden');
+                    });
+                } catch (error) {
+                    console.error("Error setting up onSnapshot for performers:", error);
+                    performersError.textContent = 'Ошибка при загрузке: ' + error.message;
+                    performersError.classList.remove('hidden');
+                }
+            }
+
+            // --- Completed Works Functions ---
+            document.getElementById('addWorkBtn').addEventListener('click', async () => {
+                const projectName = document.getElementById('workProjectName').value;
+                const clientName = document.getElementById('workClientName').value;
+                const serviceType = document.getElementById('workServiceType').value;
+                const dateCompleted = document.getElementById('workDateCompleted').value;
+                const costPaid = parseFloat(document.getElementById('workCostPaid').value);
+                const priceCharged = parseFloat(document.getElementById('workPriceCharged').value);
+                const errorElement = document.getElementById('addWorkError');
+                const spinnerElement = document.getElementById('addWorkSpinner');
+                const buttonTextElement = document.getElementById('addWorkBtnText');
+
+                errorElement.classList.add('hidden');
+                spinnerElement.classList.remove('hidden');
+                buttonTextElement.textContent = 'Добавляем...';
+
+                if (!projectName || !clientName || !serviceType || !dateCompleted || isNaN(costPaid) || isNaN(priceCharged)) {
+                    errorElement.textContent = 'Пожалуйста, заполните все поля выполненной работы корректно.';
+                    errorElement.classList.remove('hidden');
+                    spinnerElement.classList.add('hidden');
+                    buttonTextElement.textContent = 'Добавить работу';
+                    return;
+                }
+
+                if (!db || !currentUserId || currentUserId === 'Загрузка...') {
+                    errorElement.textContent = 'Ошибка: Пользователь не аутентифицирован или Firebase не инициализирован.';
+                    errorElement.classList.remove('hidden');
+                    spinnerElement.classList.add('hidden');
+                    buttonTextElement.textContent = 'Добавить работу';
+                    return;
+                }
+
+                try {
+                    const profit = priceCharged - costPaid;
+                    await addDoc(collection(db, 'artifacts', appId, 'users', currentUserId, 'completed_works'), {
+                        projectName,
+                        clientName,
+                        serviceType,
+                        dateCompleted,
+                        costPaid,
+                        priceCharged,
+                        profit,
+                        timestamp: new Date()
+                    });
+                    document.getElementById('workProjectName').value = '';
+                    document.getElementById('workClientName').value = '';
+                    document.getElementById('workServiceType').value = '';
+                    document.getElementById('workDateCompleted').value = '';
+                    document.getElementById('workCostPaid').value = '';
+                    document.getElementById('workPriceCharged').value = '';
+                } catch (e) {
+                    console.error("Error adding completed work: ", e);
+                    errorElement.textContent = `Ошибка добавления: ${e.message}`;
+                    errorElement.classList.remove('hidden');
+                } finally {
+                    spinnerElement.classList.add('hidden');
+                    buttonTextElement.textContent = 'Добавить работу';
+                }
+            });
+
+            function loadCompletedWorks(appId, userId) {
+                const completedWorksBody = document.getElementById('completedWorksBody');
+                const completedWorksError = document.getElementById('completedWorksError');
+                completedWorksBody.innerHTML = '<tr><td colspan="8" class="py-4 px-4 text-center text-gray-400">Загрузка выполненных работ...</td></tr>';
+
+                if (!db || !userId || userId === 'Загрузка...') {
+                    completedWorksBody.innerHTML = '<tr><td colspan="8" class="py-4 px-4 text-center text-red-300">Не удалось загрузить выполненные работы.</td></tr>';
+                    return;
+                }
+
+                try {
+                    const q = query(collection(db, 'artifacts', appId, 'users', userId, 'completed_works'), orderBy('timestamp', 'desc'));
+                    onSnapshot(q, (snapshot) => {
+                        completedWorksBody.innerHTML = '';
+                        if (snapshot.empty) {
+                            completedWorksBody.innerHTML = '<tr><td colspan="8" class="py-4 px-4 text-center text-gray-400">Список выполненных работ пуст.</td></tr>';
+                            return;
+                        }
+                        snapshot.forEach((docSnap) => {
+                            const data = docSnap.data();
+                            const row = completedWorksBody.insertRow();
+                            row.innerHTML = `
+                                <td class="py-2 px-4 border-b border-gray-700 text-gray-300">${data.projectName}</td>
+                                <td class="py-2 px-4 border-b border-gray-700 text-gray-300">${data.clientName}</td>
+                                <td class="py-2 px-4 border-b border-gray-700 text-gray-300">${data.serviceType}</td>
+                                <td class="py-2 px-4 border-b border-gray-700 text-gray-300">${data.dateCompleted}</td>
+                                <td class="py-2 px-4 border-b border-gray-700 text-gray-300">$${data.costPaid.toFixed(2)}</td>
+                                <td class="py-2 px-4 border-b border-gray-700 text-gray-300">$${data.priceCharged.toFixed(2)}</td>
+                                <td class="py-2 px-4 border-b border-gray-700 text-gray-300">$${data.profit.toFixed(2)}</td>
+                                <td class="py-2 px-4 border-b border-gray-700 text-center">
+                                    <button class="delete-item-btn bg-red-900 text-red-300 px-3 py-1 rounded-full text-sm hover:bg-red-800 transition-colors" data-id="${docSnap.id}" data-collection="completed_works">Удалить</button>
+                                </td>
+                            `;
+                        });
+                        attachDeleteListeners();
+                    }, (error) => {
+                        console.error("Error fetching completed works:", error);
+                        completedWorksError.textContent = 'Ошибка загрузки выполненных работ: ' + error.message;
+                        completedWorksError.classList.remove('hidden');
+                    });
+                } catch (error) {
+                    console.error("Error setting up onSnapshot for completed works:", error);
+                    completedWorksError.textContent = 'Ошибка при загрузке: ' + error.message;
+                    completedWorksError.classList.remove('hidden');
+                }
+            }
+
+            // --- Availability Functions ---
+            document.getElementById('updateAvailabilityBtn').addEventListener('click', async () => {
+                const status = document.getElementById('availabilityStatus').value;
+                const errorElement = document.getElementById('updateAvailabilityError');
+                const spinnerElement = document.getElementById('updateAvailabilitySpinner');
+                const buttonTextElement = document.getElementById('updateAvailabilityBtnText');
+
+                errorElement.classList.add('hidden');
+                spinnerElement.classList.remove('hidden');
+                buttonTextElement.textContent = 'Обновляем...';
+
+                if (!status) {
+                    errorElement.textContent = 'Пожалуйста, введите статус занятости.';
+                    errorElement.classList.remove('hidden');
+                    spinnerElement.classList.add('hidden');
+                    buttonTextElement.textContent = 'Обновить статус';
+                    return;
+                }
+
+                if (!db || !currentUserId || currentUserId === 'Загрузка...') {
+                    errorElement.textContent = 'Ошибка: Пользователь не аутентифицирован или Firebase не инициализирован.';
+                    errorElement.classList.remove('hidden');
+                    spinnerElement.classList.add('hidden');
+                    buttonTextElement.textContent = 'Обновить статус';
+                    return;
+                }
+
+                try {
+                    // Use setDoc to create or update a single document for user's availability
+                    await setDoc(doc(db, 'artifacts', appId, 'users', currentUserId, 'user_data', 'availability'), {
+                        status,
+                        lastUpdated: new Date()
+                    });
+                    document.getElementById('availabilityStatus').value = ''; // Clear input after update
+                } catch (e) {
+                    console.error("Error updating availability: ", e);
+                    errorElement.textContent = `Ошибка обновления статуса: ${e.message}`;
+                    errorElement.classList.remove('hidden');
+                } finally {
+                    spinnerElement.classList.add('hidden');
+                    buttonTextElement.textContent = 'Обновить статус';
+                }
+            });
+
+            function loadAvailability(appId, userId) {
+                const displayAvailability = document.getElementById('displayAvailability');
+                const availabilityLoadError = document.getElementById('availabilityLoadError');
+                displayAvailability.textContent = 'Загрузка статуса...';
+
+                if (!db || !userId || userId === 'Загрузка...') {
+                    displayAvailability.textContent = 'Не удалось загрузить статус занятости.';
+                    return;
+                }
+
+                try {
+                    const docRef = doc(db, 'artifacts', appId, 'users', userId, 'user_data', 'availability');
+                    onSnapshot(docRef, (docSnap) => {
+                        if (docSnap.exists()) {
+                            const data = docSnap.data();
+                            displayAvailability.textContent = data.status;
+                        } else {
+                            displayAvailability.textContent = 'Статус занятости не установлен.';
+                        }
+                    }, (error) => {
+                        console.error("Error fetching availability:", error);
+                        availabilityLoadError.textContent = 'Ошибка загрузки статуса занятости: ' + error.message;
+                        availabilityLoadError.classList.remove('hidden');
+                    });
+                } catch (error) {
+                    console.error("Error setting up onSnapshot for availability:", error);
+                    availabilityLoadError.textContent = 'Ошибка при загрузке: ' + error.message;
+                    availabilityLoadError.classList.remove('hidden');
+                }
+            }
+
+
+            // Arbitrage Chart Logic (Existing)
+            const arbitrageData = {
+                cost: {
+                    labels: ['Базовый', 'Стандарт', 'Премиум'],
+                    data: [25, 100, 300],
+                    backgroundColor: 'rgba(245, 158, 11, 0.2)', /* Amber with transparency */
+                    borderColor: 'rgba(245, 158, 11, 1)', /* Amber */
+                    label: 'Стоимость (наем фрилансера)',
+                },
+                price: {
+                    labels: ['Базовый', 'Стандарт', 'Премиум'],
+                    data: [900, 1500, 3400],
+                    backgroundColor: 'rgba(107, 114, 128, 0.6)', /* Gray with transparency */
+                    borderColor: 'rgba(107, 114, 128, 1)', /* Gray */
+                    label: 'Цена (продажа клиенту)',
+                }
+            };
+
+            const arbitrageChartCtx = document.getElementById('arbitrageChart').getContext('2d');
+            let arbitrageChart;
+
+            function createOrUpdateArbitrageChart(dataToShow) {
+                if (arbitrageChart) {
+                    arbitrageChart.destroy();
+                }
+                arbitrageChart = new Chart(arbitrageChartCtx, {
+                    type: 'bar',
+                    data: {
+                        labels: dataToShow.labels,
+                        datasets: [{
+                            label: dataToShow.label,
+                            data: dataToShow.data,
+                            backgroundColor: dataToShow.backgroundColor,
+                            borderColor: dataToShow.borderColor,
+                            borderWidth: 2,
+                            borderRadius: 5,
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        scales: {
+                            y: {
+                                beginAtZero: true,
+                                title: { display: true, text: 'Цена ($)', color: '#e0e0e0' }, /* Text color for scale title */
+                                ticks: { color: '#e0e0e0' }, /* Text color for ticks */
+                                grid: { color: '#4a4a5a' } /* Darker grid lines */
+                            },
+                            x: {
+                                ticks: { color: '#e0e0e0' }, /* Text color for ticks */
+                                grid: { display: false }
+                            }
+                        },
+                        plugins: {
+                            legend: { display: false },
+                            tooltip: {
+                                callbacks: {
+                                    label: function (context) {
+                                        return `${context.dataset.label}: $${context.parsed.y}`;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                });
+            }
+
+            createOrUpdateArbitrageChart(arbitrageData.cost);
+
+            const showCostBtn = document.getElementById('showCostBtn');
+            const showPriceBtn = document.getElementById('showPriceBtn');
+
+            showCostBtn.addEventListener('click', () => {
+                createOrUpdateArbitrageChart(arbitrageData.cost);
+                showCostBtn.classList.add('bg-amber-500', 'text-white');
+                showCostBtn.classList.remove('bg-gray-700', 'text-gray-300');
+                showPriceBtn.classList.add('bg-gray-700', 'text-gray-300');
+                showPriceBtn.classList.remove('bg-amber-500', 'text-white');
+            });
+
+            showPriceBtn.addEventListener('click', () => {
+                createOrUpdateArbitrageChart(arbitrageData.price);
+                showPriceBtn.classList.add('bg-amber-500', 'text-white');
+                showPriceBtn.classList.remove('bg-gray-700', 'text-gray-300');
+                showCostBtn.classList.add('bg-gray-700', 'text-gray-300');
+                showCostBtn.classList.remove('bg-amber-500', 'text-white');
+            });
+            
+            const nichesData = {
+                'web-dev': {
+                    title: 'Веб-разработка',
+                    growth: 16,
+                    demand: 'Один из самых быстрорастущих рынков. Спрос на адаптивный дизайн, PWA и интеграцию с ИИ.',
+                    services: 'Сайты, лендинги, поддержка, кастомный код.',
+                    cost: 'От $2900/мес за джуниора.',
+                    price: '$40-75/час, эксперты до $300/час.'
+                },
+                'copywriting': {
+                    title: 'Копирайтинг',
+                    growth: 7.6,
+                    demand: 'Рынок достигнет $42 млрд к 2030. Спрос на SEO-контент, email-маркетинг и нишевые тексты.',
+                    services: 'Тексты для сайтов, посты в блог, email-рассылки, реклама.',
+                    cost: 'От $95 за email-кампанию, $120 за пост.',
+                    price: '$50-1000 за пост, до $2/слово у экспертов.'
+                },
+                'design': {
+                    title: 'Графический дизайн',
+                    growth: 8.1,
+                    demand: 'Рынок достигнет $81 млрд к 2030. Рост из-за цифрового контента и e-commerce.',
+                    services: 'Логотипы, фирменный стиль, UI/UX, маркетинг-киты.',
+                    cost: 'Пакеты от $299/мес. Лого от $70.',
+                    price: '$25-75/час, агентства $150-300/час.'
+                },
+                'seo': {
+                    title: 'SEO',
+                    growth: 9.5,
+                    demand: '68% онлайн-опыта начинается с поиска. SEO - главный приоритет для 61% маркетологов.',
+                    services: 'Технический аудит, линкбилдинг, локальное SEO, контент.',
+                    cost: 'От $499/мес за локальное SEO.',
+                    price: '$50-200/час для фрилансеров.'
+                },
+                'va': {
+                    title: 'Виртуальный ассистент',
+                    growth: 22.3,
+                    demand: 'Рынок вырастет до $23 млрд к 2033 из-за спроса на удаленную работу.',
+                    services: 'Админ. задачи, SMM, управление проектами, поддержка.',
+                    cost: 'Общие VA от $15-50/час.',
+                    price: 'Специалисты по маркетингу $30-100/час.'
+                }
+            };
+            
+            const nicheContentEl = document.getElementById('niche-content');
+            const tabBtns = document.querySelectorAll('.tab-btn');
+
+            function displayNiche(nicheKey) {
+                const niche = nichesData[nicheKey];
+                nicheContentEl.innerHTML = `
+                    <div class="md:col-span-2 fade-in">
+                        <h4 class="text-2xl font-bold text-gray-100 mb-4">${niche.title}</h4>
+                        <p class="text-gray-400 mb-2"><strong>Спрос:</strong> ${niche.demand}</p>
+                        <p class="text-gray-400 mb-2"><strong>Услуги:</strong> ${niche.services}</p>
+                        <p class="text-gray-400 mb-2"><strong>Стоимость аутсорса:</strong> ${niche.cost}</p>
+                        <p class="text-gray-400"><strong>Цена для клиента:</strong> ${niche.price}</p>
+                    </div>
+                    <div class="md:col-span-3 flex items-center justify-center fade-in">
+                        <div class="w-full">
+                            <h5 class="text-center font-semibold mb-2">Прогнозируемый рост рынка (CAGR)</h5>
+                            <div class="chart-container !h-64">
+                                <canvas id="nicheGrowthChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                
+                const growthChartCtx = document.getElementById('nicheGrowthChart').getContext('2d');
+                new Chart(growthChartCtx, {
+                    type: 'bar',
+                    data: {
+                        labels: Object.values(nichesData).map(n => n.title),
+                        datasets: [{
+                            label: 'Среднегодовой темп роста (%)',
+                            data: Object.values(nichesData).map(n => n.growth),
+                            backgroundColor: Object.keys(nichesData).map(key => key === nicheKey ? '#f59e0b' : '#4b5563'), /* Amber or darker gray */
+                            borderColor: Object.keys(nichesData).map(key => key === nicheKey ? '#d97706' : '#374151'), /* Darker amber or even darker gray */
+                            borderWidth: 1,
+                            borderRadius: 4,
+                        }]
+                    },
+                    options: {
+                        indexAxis: 'y',
+                        responsive: true,
+                        maintainAspectRatio: false,
+                         scales: {
+                            x: {
+                                beginAtZero: true,
+                                title: { display: true, text: 'Рост (%)', color: '#e0e0e0' },
+                                ticks: { color: '#e0e0e0' },
+                                grid: { color: '#4a4a5a' }
+                            },
+                            y: {
+                                ticks: { color: '#e0e0e0' },
+                                grid: { display: false }
+                            }
+                        },
+                        plugins: { legend: { display: false } }
+                    }
+                });
+            }
+
+            tabBtns.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    tabBtns.forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
+                    displayNiche(btn.dataset.niche);
+                });
+                btn.classList.add('px-4', 'py-2', 'rounded-lg', 'font-medium', 'transition-colors', 'bg-gray-700', 'hover:bg-gray-600', 'text-gray-300');
+            });
+            displayNiche('web-dev');
+            
+            function animateCounter(el, target) {
+                let current = 0;
+                const step = target / 100;
+                const timer = setInterval(() => {
+                    current += step;
+                    if (current >= target) {
+                        clearInterval(timer);
+                        el.textContent = `${target}%`;
+                        if(el.id === 'stat3') el.textContent = `$${target} млрд`;
+                        if(el.id === 'stat4') el.textContent = `+${target}%`;
+                    } else {
+                        el.textContent = `${Math.ceil(current)}%`;
+                         if(el.id === 'stat3') el.textContent = `$${Math.ceil(current)} млрд`;
+                         if(el.id === 'stat4') el.textContent = `+${Math.ceil(current)}%`;
+                    }
+                }, 20);
+            }
+            
+            const stats = [
+                { id: 'stat1', value: 90 },
+                { id: 'stat2', value: 82 },
+                { id: 'stat3', value: 10 },
+                { id: 'stat4', value: 49 }
+            ];
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const stat = stats.find(s => s.id === entry.target.id);
+                        if (stat && !entry.target.classList.contains('animated')) {
+                             animateCounter(entry.target, stat.value);
+                             entry.target.classList.add('animated');
+                        }
+                    }
+                });
+            }, { threshold: 0.5 });
+            
+            stats.forEach(s => observer.observe(document.getElementById(s.id)));
+
+
+            const stepsData = [
+                {
+                    title: "Выбор ниши и предложения",
+                    content: `
+                        <h4 class="text-xl font-bold mb-4 text-gray-100">Шаг 1: Выбор ниши и формирование предложения</h4>
+                        <p class="mb-2 text-gray-400"><strong>Исследуйте рынок:</strong> Ищите услуги с высоким спросом. Используйте фриланс-биржи и инструменты вроде Google Trends.</p>
+                        <p class="mb-2 text-gray-400"><strong>Оцените прибыльность:</strong> Ищите услуги со значительной разницей в ценах между стоимостью фрилансера и ценой для клиента. Цельтесь на маржу 30-60%.</p>
+                        <p class="mb-2 text-gray-400"><strong>Упакуйте услуги:</strong> Создайте пакеты (Базовый, Стандарт, Премиум). Это упрощает выбор для клиента.</p>
+                        <p class="mb-6 text-gray-400"><strong>Ценообразование на основе ценности:</strong> Устанавливайте цену не от стоимости работы, а от ценности, которую вы приносите клиенту.</p>
+
+                        <div class="bg-gray-800 p-6 rounded-lg shadow-md mt-8">
+                            <h5 class="text-xl font-semibold text-amber-400 mb-4">✨ Генератор Идей Расширения Услуг</h5>
+                            <p class="text-gray-300 mb-4">Получите новые идеи для расширения вашего фриланс-арбитражного бизнеса, основываясь на текущей нише.</p>
+                            <div class="mb-4">
+                                <label for="expansionNiche" class="block text-sm font-medium text-gray-300">Ваша текущая ниша/услуга:</label>
+                                <input type="text" id="expansionNiche" class="mt-1 block w-full border border-gray-700 rounded-md shadow-sm p-2 focus:ring-amber-500 focus:border-amber-500 bg-gray-700 text-gray-100" placeholder="Например, монтаж коротких видео для бизнеса">
+                            </div>
+                            <div class="mb-4">
+                                <label for="expansionTargetAudience" class="block text-sm font-medium text-gray-300">Целевая аудитория (если применимо):</label>
+                                <input type="text" id="expansionTargetAudience" class="mt-1 block w-full border border-gray-700 rounded-md shadow-sm p-2 focus:ring-amber-500 focus:border-amber-500 bg-gray-700 text-gray-100" placeholder="Например, небольшие онлайн-магазины">
+                            </div>
+                            <button id="generateExpansionBtn" class="bg-amber-500 text-white px-5 py-2 rounded-lg hover:bg-amber-600 transition-colors flex items-center justify-center">
+                                <span id="expansionBtnText">Сгенерировать идеи ✨</span>
+                                <div id="expansionSpinner" class="hidden animate-spin rounded-full h-5 w-5 border-b-2 border-white ml-2"></div>
+                            </button>
+                            <div id="expansionOutput" class="mt-6 p-4 bg-gray-700 border border-gray-600 rounded-md shadow-inner text-gray-100 hidden whitespace-pre-wrap"></div>
+                            <div id="expansionError" class="mt-2 p-2 bg-red-900 text-red-300 rounded-md hidden"></div>
+                            <button id="saveExpansionBtn" class="bg-amber-600 text-white px-4 py-2 rounded-lg hover:bg-amber-700 transition-colors mt-2 hidden">Сохранить идею ✨</button>
+                        </div>
+
+                        <div class="bg-gray-800 p-6 rounded-lg shadow-md mt-8">
+                            <h5 class="text-xl font-semibold text-amber-400 mb-4">✨ Идентификатор Рыночных Трендов</h5>
+                            <p class="text-gray-300 mb-4">Найдите перспективные рыночные тренды и популярные услуги в выбранной отрасли.</p>
+                            <div class="mb-4">
+                                <label for="trendsIndustry" class="block text-sm font-medium text-gray-300">Отрасль для анализа (например, Digital Marketing, E-commerce, AI Services):</label>
+                                <input type="text" id="trendsIndustry" class="mt-1 block w-full border border-gray-700 rounded-md shadow-sm p-2 focus:ring-amber-500 focus:border-amber-500 bg-gray-700 text-gray-100" placeholder="Например, Видеопроизводство">
+                            </div>
+                            <button id="generateTrendsBtn" class="bg-amber-500 text-white px-5 py-2 rounded-lg hover:bg-amber-600 transition-colors flex items-center justify-center">
+                                <span id="trendsBtnText">Найти тренды ✨</span>
+                                <div id="trendsSpinner" class="hidden animate-spin rounded-full h-5 w-5 border-b-2 border-white ml-2"></div>
+                            </button>
+                            <div id="trendsOutput" class="mt-6 p-4 bg-gray-700 border border-gray-600 rounded-md shadow-inner text-gray-100 hidden whitespace-pre-wrap"></div>
+                            <div id="trendsError" class="mt-2 p-2 bg-red-900 text-red-300 rounded-md hidden"></div>
+                            <button id="saveTrendsBtn" class="bg-amber-600 text-white px-4 py-2 rounded-lg hover:bg-amber-700 transition-colors mt-2 hidden">Сохранить тренды ✨</button>
+                        </div>
+                    `
+                },
+                {
+                    title: "Создание онлайн-присутствия",
+                    content: `
+                        <h4 class="text-xl font-bold mb-4 text-gray-100">Шаг 2: Создание профессионального присутствия в Интернете</h4>
+                        <p class="mb-2 text-gray-400"><strong>Профессиональный сайт:</strong> Это ваша визитная карточка. Покажите свои услуги, кейсы и отзывы.</p>
+                        <p class="mb-2 text-gray-400"><strong>Качественное портфолио:</strong> Демонстрируйте лучшие работы. Если их нет — создайте концепты. Объясняйте, какую проблему клиента вы решили.</p>
+                        <p class="mb-2 text-gray-400"><strong>Оптимизируйте профили:</b> На Upwork/Fiverr используйте ключевые слова, профессиональное фото и убедительное описание.</p>
+                        <p class="mb-6 text-gray-400"><strong>Социальные сети:</strong> LinkedIn отлично подходит для B2B клиентов. Делитесь экспертизой.</p>
+                        
+                        <div class="bg-gray-800 p-6 rounded-lg shadow-md mt-8">
+                            <h5 class="text-xl font-semibold text-amber-400 mb-4">✨ Генератор Питчей</h5>
+                            <p class="text-gray-300 mb-4">Быстро создайте убедительный питч, указав ключевые детали. Искусственный интеллект поможет сформулировать лучшее предложение.</p>
+                            <div class="mb-4">
+                                <label for="pitchService" class="block text-sm font-medium text-gray-300">Услуга:</label>
+                                <input type="text" id="pitchService" class="mt-1 block w-full border border-gray-700 rounded-md shadow-sm p-2 focus:ring-amber-500 focus:border-amber-500 bg-gray-700 text-gray-100" placeholder="Например, монтаж коротких видео">
+                            </div>
+                            <div class="mb-4">
+                                <label for="pitchIndustry" class="block text-sm font-medium text-gray-300">Индустрия клиента:</label>
+                                <input type="text" id="pitchIndustry" class="mt-1 block w-full border border-gray-700 rounded-md shadow-sm p-2 focus:ring-amber-500 focus:border-amber-500 bg-gray-700 text-gray-100" placeholder="Например, фитнес-блогеры">
+                            </div>
+                            <div class="mb-4">
+                                <label for="pitchOutcome" class="block text-sm font-medium text-gray-300">Желаемый результат для клиента:</label>
+                                <input type="text" id="pitchOutcome" class="mt-1 block w-full border border-gray-700 rounded-md shadow-sm p-2 focus:ring-amber-500 focus:border-amber-500 bg-gray-700 text-gray-100" placeholder="Например, увеличение подписчиков на 30%">
+                            </div>
+                            <button id="generatePitchBtn" class="bg-amber-500 text-white px-5 py-2 rounded-lg hover:bg-amber-600 transition-colors flex items-center justify-center">
+                                <span id="pitchBtnText">Сгенерировать питч ✨</span>
+                                <div id="pitchSpinner" class="hidden animate-spin rounded-full h-5 w-5 border-b-2 border-white ml-2"></div>
+                            </button>
+                            <div id="pitchOutput" class="mt-6 p-4 bg-gray-700 border border-gray-600 rounded-md shadow-inner text-gray-100 hidden"></div>
+                            <div id="pitchError" class="mt-2 p-2 bg-red-900 text-red-300 rounded-md hidden"></div>
+                            <button id="savePitchBtn" class="bg-amber-600 text-white px-4 py-2 rounded-lg hover:bg-amber-700 transition-colors mt-2 hidden">Сохранить питч ✨</button>
+                        </div>
+                        
+                        <div class="bg-gray-800 p-6 rounded-lg shadow-md mt-8">
+                            <h5 class="text-xl font-semibold text-amber-400 mb-4">✨ Генератор Идей для Контента в Соцсетях</h5>
+                            <p class="text-gray-300 mb-4">Получите креативные идеи для постов и видео, чтобы эффективно продвигать свои услуги.</p>
+                            <div class="mb-4">
+                                <label for="contentPlatform" class="block text-sm font-medium text-gray-300">Платформа:</label>
+                                <input type="text" id="contentPlatform" class="mt-1 block w-full border border-gray-700 rounded-md shadow-sm p-2 focus:ring-amber-500 focus:border-amber-500 bg-gray-700 text-gray-100" placeholder="Например, TikTok, Instagram Reels, YouTube Shorts">
+                            </div>
+                            <div class="mb-4">
+                                <label for="contentService" class="block text-sm font-medium text-gray-300">Ваша услуга:</label>
+                                <input type="text" id="contentService" class="mt-1 block w-full border border-gray-700 rounded-md shadow-sm p-2 focus:ring-amber-500 focus:border-amber-500 bg-gray-700 text-gray-100" placeholder="Например, монтаж коротких видео">
+                            </div>
+                            <div class="mb-4">
+                                <label for="contentAudience" class="block text-sm font-medium text-gray-300">Целевая аудитория:</label>
+                                <input type="text" id="contentAudience" class="mt-1 block w-full border border-gray-700 rounded-md shadow-sm p-2 focus:ring-amber-500 focus:border-amber-500 bg-gray-700 text-gray-100" placeholder="Например, малый бизнес, фитнес-тренеры">
+                            </div>
+                            <button id="generateContentBtn" class="bg-amber-500 text-white px-5 py-2 rounded-lg hover:bg-amber-600 transition-colors flex items-center justify-center">
+                                <span id="contentBtnText">Сгенерировать идеи ✨</span>
+                                <div id="contentSpinner" class="hidden animate-spin rounded-full h-5 w-5 border-b-2 border-white ml-2"></div>
+                            </button>
+                            <div id="contentOutput" class="mt-6 p-4 bg-gray-700 border border-gray-600 rounded-md shadow-inner text-gray-100 hidden whitespace-pre-wrap"></div>
+                            <div id="contentError" class="mt-2 p-2 bg-red-900 text-red-300 rounded-md hidden"></div>
+                            <button id="saveContentBtn" class="bg-amber-600 text-white px-4 py-2 rounded-lg hover:bg-amber-700 transition-colors mt-2 hidden">Сохранить идеи ✨</button>
+                        </div>
+                    `
+                },
+                {
+                    title: "Поиск и проверка фрилансеров",
+                    content: `
+                        <h4 class="text-xl font-bold mb-4 text-gray-100">Шаг 3: Поиск и проверка фрилансеров (ваших поставщиков)</h4>
+                        <p class="mb-2 text-gray-400"><strong>Где искать:</strong> Upwork, Fiverr, LinkedIn, тематические группы в Facebook/Reddit.</p>
+                        <p class="mb-2 text-gray-400"><strong>Процесс проверки:</strong> Изучите портфолио, отзывы, опыт. Оцените навыки коммуникации.</p>
+                        <p class="mb-2 text-gray-400"><strong>Тестовый проект:</strong> Всегда начинайте с небольшого оплачиваемого тестового задания. Это лучший способ проверить надежность и качество без больших рисков.</p>
+                        <p class="mb-6 text-gray-400"><strong>Юридическая защита:</strong> Подпишите с фрилансером соглашение о неразглашении (NDA), особенно если работаете с конфиденциальными данными клиента.</p>
+
+                        <div class="bg-gray-800 p-6 rounded-lg shadow-md mt-8">
+                            <h5 class="text-xl font-semibold text-amber-400 mb-4">✨ Генератор Вопросов для Интервью с Фрилансерами</h5>
+                            <p class="text-gray-300 mb-4">Сгенерируйте список вопросов для собеседования, чтобы эффективно оценить потенциальных фрилансеров.</p>
+                            <div class="mb-4">
+                                <label for="interviewService" class="block text-sm font-medium text-gray-300">Тип услуги, которую вы ищете:</label>
+                                <input type="text" id="interviewService" class="mt-1 block w-full border border-gray-700 rounded-md shadow-sm p-2 focus:ring-amber-500 focus:border-amber-500 bg-gray-700 text-gray-100" placeholder="Например, графический дизайнер, копирайтер">
+                            </div>
+                            <div class="mb-4">
+                                <label for="interviewSkills" class="block text-sm font-medium text-gray-300">Ключевые навыки для проверки (через запятую):</label>
+                                <input type="text" id="interviewSkills" class="mt-1 block w-full border border-gray-700 rounded-md shadow-sm p-2 focus:ring-amber-500 focus:border-amber-500 bg-gray-700 text-gray-100" placeholder="Например, Adobe Photoshop, SEO-оптимизация, управление проектами">
+                            </div>
+                            <button id="generateInterviewQuestionsBtn" class="bg-amber-500 text-white px-5 py-2 rounded-lg hover:bg-amber-600 transition-colors flex items-center justify-center">
+                                <span id="interviewBtnText">Сгенерировать вопросы ✨</span>
+                                <div id="interviewSpinner" class="hidden animate-spin rounded-full h-5 w-5 border-b-2 border-white ml-2"></div>
+                            </button>
+                            <div id="interviewOutput" class="mt-6 p-4 bg-gray-700 border border-gray-600 rounded-md shadow-inner text-gray-100 hidden whitespace-pre-wrap"></div>
+                            <div id="interviewError" class="mt-2 p-2 bg-red-900 text-red-300 rounded-md hidden"></div>
+                            <button id="saveInterviewBtn" class="bg-amber-600 text-white px-4 py-2 rounded-lg hover:bg-amber-700 transition-colors mt-2 hidden">Сохранить вопросы ✨</button>
+                        </div>
+                    `
+                },
+                {
+                    title: "Управление проектами",
+                    content: `
+                        <h4 class="text-xl font-bold mb-4 text-gray-100">Шаг 4: Управление проектами и рабочими процессами</h4>
+                        <p class="mb-2 text-gray-400"><strong>Четкие брифы:</strong> Определите цели, объем работ, сроки и ответственных. Это предотвратит "расползание" проекта.</p>
+                        <p class="mb-2 text-gray-400"><strong>Инструменты:</strong> Используйте Trello, Asana, Notion для отслеживания задач. Для видео — Frame.io для удобной обратной связи.</p>
+                        <p class="mb-6 text-gray-400"><strong>Коммуникация:</strong> Регулярные проверки и конструктивная обратная связь — ключ к успеху. Будьте на связи как с клиентом, так и с исполнителем.</p>
+                        <p class="mb-6 text-gray-400"><strong>Управление правками:</strong> Заранее оговорите в договоре количество включенных раундов правок. Дополнительные правки — за дополнительную плату.</p>
+
+                        <div class="bg-gray-800 p-6 rounded-lg shadow-md mt-8">
+                            <h5 class="text-xl font-semibold text-amber-400 mb-4">✨ Ассистент по Описанию Проектов</h5>
+                            <p class="text-gray-300 mb-4">Получите подробный бриф для вашего фрилансера, основываясь на запросе клиента.</p>
+                            <div class="mb-4">
+                                <label for="projectRequest" class="block text-sm font-medium text-gray-300">Запрос клиента (кратко):</label>
+                                <input type="text" id="projectRequest" class="mt-1 block w-full border border-gray-700 rounded-md shadow-sm p-2 focus:ring-amber-500 focus:border-amber-500 bg-gray-700 text-gray-100" placeholder="Например, нужно 5 коротких видео для TikTok">
+                            </div>
+                            <div class="mb-4">
+                                <label for="projectServiceType" class="block text-sm font-medium text-gray-300">Тип услуги:</label>
+                                <input type="text" id="projectServiceType" class="mt-1 block w-full border border-gray-700 rounded-md shadow-sm p-2 focus:ring-amber-500 focus:border-amber-500 bg-gray-700 text-gray-100" placeholder="Например, монтаж видео, написание статьи, веб-дизайн">
+                            </div>
+                            <button id="generateScopeBtn" class="bg-amber-500 text-white px-5 py-2 rounded-lg hover:bg-amber-600 transition-colors flex items-center justify-center">
+                                <span id="scopeBtnText">Сгенерировать бриф ✨</span>
+                                <div id="scopeSpinner" class="hidden animate-spin rounded-full h-5 w-5 border-b-2 border-white ml-2"></div>
+                            </button>
+                            <div id="scopeOutput" class="mt-6 p-4 bg-gray-700 border border-gray-600 rounded-md shadow-inner text-gray-100 hidden whitespace-pre-wrap"></div>
+                            <div id="scopeError" class="mt-2 p-2 bg-red-900 text-red-300 rounded-md hidden"></div>
+                            <button id="saveScopeBtn" class="bg-amber-600 text-white px-4 py-2 rounded-lg hover:bg-amber-700 transition-colors mt-2 hidden">Сохранить бриф ✨</button>
+                        </div>
+
+                        <div class="bg-gray-800 p-6 rounded-lg shadow-md mt-8">
+                            <h5 class="text-xl font-semibold text-amber-400 mb-4">✨ Ассистент по Коммуникации с Клиентами</h5>
+                            <p class="text-gray-300 mb-4">Сгенерируйте профессиональный ответ на запрос или отзыв клиента.</p>
+                            <div class="mb-4">
+                                <label for="clientQuery" class="block text-sm font-medium text-gray-300">Запрос/Отзыв клиента (кратко):</label>
+                                <textarea id="clientQuery" rows="3" class="mt-1 block w-full border border-gray-700 rounded-md shadow-sm p-2 focus:ring-amber-500 focus:border-amber-500 bg-gray-700 text-gray-100" placeholder="Например, клиент спрашивает о ходе проекта или жалуется на задержку"></textarea>
+                            </div>
+                            <div class="mb-4">
+                                <label for="desiredTone" class="block text-sm font-medium text-gray-300">Желаемый тон ответа (например, официальный, дружелюбный, извиняющийся):</label>
+                                <input type="text" id="desiredTone" class="mt-1 block w-full border border-gray-700 rounded-md shadow-sm p-2 focus:ring-amber-500 focus:border-amber-500 bg-gray-700 text-gray-100" placeholder="Например, профессиональный и успокаивающий">
+                            </div>
+                            <button id="generateClientResponseBtn" class="bg-amber-500 text-white px-5 py-2 rounded-lg hover:bg-amber-600 transition-colors flex items-center justify-center">
+                                <span id="clientResponseBtnText">Сгенерировать ответ ✨</span>
+                                <div id="clientResponseSpinner" class="hidden animate-spin rounded-full h-5 w-5 border-b-2 border-white ml-2"></div>
+                            </button>
+                            <div id="clientResponseOutput" class="mt-6 p-4 bg-gray-700 border border-gray-600 rounded-md shadow-inner text-gray-100 hidden whitespace-pre-wrap"></div>
+                            <div id="clientResponseError" class="mt-2 p-2 bg-red-900 text-red-300 rounded-md hidden"></div>
+                            <button id="saveClientResponseBtn" class="bg-amber-600 text-white px-4 py-2 rounded-lg hover:bg-amber-700 transition-colors mt-2 hidden">Сохранить ответ ✨</button>
+                        </div>
+
+                        <div class="bg-gray-800 p-6 rounded-lg shadow-md mt-8">
+                            <h5 class="text-xl font-semibold text-amber-400 mb-4">✨ Оценщик Проектных Рисков</h5>
+                            <p class="text-gray-300 mb-4">Определите потенциальные риски для вашего проекта и получите рекомендации по их снижению.</p>
+                            <div class="mb-4">
+                                <label for="riskProjectDescription" class="block text-sm font-medium text-gray-300">Краткое описание проекта:</label>
+                                <input type="text" id="riskProjectDescription" class="mt-1 block w-full border border-gray-700 rounded-md shadow-sm p-2 focus:ring-amber-500 focus:border-amber-500 bg-gray-700 text-gray-100" placeholder="Например, создание серии из 10 коротких видео для нового стартапа">
+                            </div>
+                            <div class="mb-4">
+                                <label for="riskClientClarity" class="block text-sm font-medium text-gray-300">Насколько четкий бриф от клиента (например, очень четкий, средний, расплывчатый):</label>
+                                <input type="text" id="riskClientClarity" class="mt-1 block w-full border border-gray-700 rounded-md shadow-sm p-2 focus:ring-amber-500 focus:border-amber-500 bg-gray-700 text-gray-100" placeholder="Например, расплывчатый, нет четкого ТЗ">
+                            </div>
+                            <div class="mb-4">
+                                <label for="riskFreelancerExperience" class="block text-sm font-medium text-gray-300">Опыт нанятого фрилансера (например, опытный, средний, новичок):</label>
+                                <input type="text" id="riskFreelancerExperience" class="mt-1 block w-full border border-gray-700 rounded-md shadow-sm p-2 focus:ring-amber-500 focus:border-amber-500 bg-gray-700 text-gray-100" placeholder="Например, новичок, это его первый проект">
+                            </div>
+                            <button id="riskAssessBtn" class="bg-amber-500 text-white px-5 py-2 rounded-lg hover:bg-amber-600 transition-colors flex items-center justify-center">
+                                <span id="riskAssessBtnText">Оценить риски ✨</span>
+                                <div id="riskAssessSpinner" class="hidden animate-spin rounded-full h-5 w-5 border-b-2 border-white ml-2"></div>
+                            </button>
+                            <div id="riskAssessOutput" class="mt-6 p-4 bg-gray-700 border border-gray-600 rounded-md shadow-inner text-gray-100 hidden whitespace-pre-wrap"></div>
+                            <div id="riskAssessError" class="mt-2 p-2 bg-red-900 text-red-300 rounded-md hidden"></div>
+                            <button id="saveRiskAssessBtn" class="bg-amber-600 text-white px-4 py-2 rounded-lg hover:bg-amber-700 transition-colors mt-2 hidden">Сохранить оценку рисков ✨</button>
+                        </div>
+                    `
+                },
+                {
+                    title: "Контроль качества",
+                    content: `
+                        <h4 class="text-xl font-bold mb-4 text-gray-100">Шаг 5: Контроль качества и управление репутацией</h4>
+                        <p class="mb-2 text-gray-400"><strong>Создайте чек-лист:</strong> Для видео это может быть проверка разрешения, звука, цветокоррекции, соответствия ТЗ.</p>
+                        <p class="mb-2 text-gray-400"><strong>Промежуточные проверки:</strong> Не ждите финального результата. Проверяйте работу на ключевых этапах (концепт, черновик, финал).</p>
+                        <p class="mb-2 text-gray-400"><strong>Вы — финальный фильтр:</strong> Вы отвечаете перед клиентом. Ваша задача — проверить каждую деталь перед отправкой работы.</p>
+                        <p class="mb-6 text-gray-400"><strong>Долгосрочные партнеры:</strong> Найдя надежных фрилансеров, стройте с ними долгосрочные отношения. Это гарантия стабильного качества.</p>
+
+                        <div class="bg-gray-800 p-6 rounded-lg shadow-md mt-8">
+                            <h5 class="text-xl font-semibold text-amber-400 mb-4">✨ Генератор Чек-листов Качества</h5>
+                            <p class="text-gray-300 mb-4">Создайте детальный чек-лист для проверки выполненной работы. Укажите тип услуги и ключевые аспекты.</p>
+                            <div class="mb-4">
+                                <label for="checklistService" class="block text-sm font-medium text-gray-300">Тип услуги:</label>
+                                <input type="text" id="checklistService" class="mt-1 block w-full border border-gray-700 rounded-md shadow-sm p-2 focus:ring-amber-500 focus:border-amber-500 bg-gray-700 text-gray-100" placeholder="Например, короткое видео для Reels">
+                            </div>
+                            <div class="mb-4">
+                                <label for="checklistKeyAspects" class="block text-sm font-medium text-gray-300">Ключевые аспекты для проверки (через запятую):</label>
+                                <input type="text" id="checklistKeyAspects" class="mt-1 block w-full border border-gray-700 rounded-md shadow-sm p-2 focus:ring-amber-500 focus:border-amber-500 bg-gray-700 text-gray-100" placeholder="Например, качество звука, цветокоррекция, соответствие хронометражу">
+                            </div>
+                            <button id="generateChecklistBtn" class="bg-amber-500 text-white px-5 py-2 rounded-lg hover:bg-amber-600 transition-colors flex items-center justify-center">
+                                <span id="checklistBtnText">Сгенерировать чек-лист ✨</span>
+                                <div id="checklistSpinner" class="hidden animate-spin rounded-full h-5 w-5 border-b-2 border-white ml-2"></div>
+                            </button>
+                            <div id="checklistOutput" class="mt-6 p-4 bg-gray-700 border border-gray-600 rounded-md shadow-inner text-gray-100 hidden whitespace-pre-wrap"></div>
+                            <div id="checklistError" class="mt-2 p-2 bg-red-900 text-red-300 rounded-md hidden"></div>
+                            <button id="saveChecklistBtn" class="bg-amber-600 text-white px-4 py-2 rounded-lg hover:bg-amber-700 transition-colors mt-2 hidden">Сохранить чек-лист ✨</button>
+                        </div>
+                    `
+                },
+                {
+                    title: "Юридические аспекты и платежи",
+                    content: `
+                        <h4 class="text-xl font-bold mb-4 text-gray-100">Шаг 6: Юридические аспекты и управление платежами</h4>
+                        <p class="mb-2 text-gray-400"><strong>Договор с клиентом:</strong> Обязателен! Пропишите объем работ, сроки, стоимость, условия оплаты, количество правок, права на интеллектуальную собственность.</p>
+                        <p class="mb-2 text-gray-400"><strong>Договор с фрилансером:</strong> Также необходим. Защищает вас и четко определяет обязанности сторон.</p>
+                        <p class="mb-2 text-gray-400"><strong>Платежные системы:</strong> Используйте надежные системы вроде Wise, Payoneer, Stripe. PayPal удобен, но имеет высокие комиссии.</p>
+                        <p class="mb-6 text-gray-400"><strong>Учитывайте комиссии:</strong> Fiverr берет 20%, Upwork — 10%. Заложите эти расходы в свою цену, чтобы не потерять прибыль.</p>
+
+                        <div class="bg-gray-800 p-6 rounded-lg shadow-md mt-8">
+                            <h5 class="text-xl font-semibold text-amber-400 mb-4">✨ Ассистент по Договорным Положениям</h5>
+                            <p class="text-gray-300 mb-4">Быстро сгенерируйте черновик важного договорного положения, указав его тип и контекст.</p>
+                            <div class="mb-4">
+                                <label for="clauseType" class="block text-sm font-medium text-gray-300">Тип положения (например, NDA, Условия оплаты, Изменение объема работ):</label>
+                                <input type="text" id="clauseType" class="mt-1 block w-full border border-gray-700 rounded-md shadow-sm p-2 focus:ring-amber-500 focus:border-amber-500 bg-gray-700 text-gray-100" placeholder="Например, Положение о конфиденциальности">
+                            </div>
+                            <div class="mb-4">
+                                <label for="clauseContext" class="block text-sm font-medium text-gray-300">Краткий контекст или детали:</label>
+                                <textarea id="clauseContext" rows="3" class="mt-1 block w-full border border-gray-700 rounded-md shadow-sm p-2 focus:ring-amber-500 focus:border-amber-500 bg-gray-700 text-gray-100" placeholder="Например, для защиты информации клиента при работе с фрилансером по монтажу видео"></textarea>
+                            </div>
+                            <button id="generateClauseBtn" class="bg-amber-500 text-white px-5 py-2 rounded-lg hover:bg-amber-600 transition-colors flex items-center justify-center">
+                                <span id="clauseBtnText">Сгенерировать положение ✨</span>
+                                <div id="clauseSpinner" class="hidden animate-spin rounded-full h-5 w-5 border-b-2 border-white ml-2"></div>
+                            </button>
+                            <div id="clauseOutput" class="mt-6 p-4 bg-gray-700 border border-gray-600 rounded-md shadow-inner text-gray-100 hidden whitespace-pre-wrap"></div>
+                            <div id="clauseError" class="mt-2 p-2 bg-red-900 text-red-300 rounded-md hidden"></div>
+                            <button id="saveClauseBtn" class="bg-amber-600 text-white px-4 py-2 rounded-lg hover:bg-amber-700 transition-colors mt-2 hidden">Сохранить положение ✨</button>
+                        </div>
+
+                        <div class="bg-gray-800 p-6 rounded-lg shadow-md mt-8">
+                            <h5 class="text-xl font-semibold text-amber-400 mb-4">✨ Генератор Напоминаний об Оплате</h5>
+                            <p class="text-gray-300 mb-4">Создайте профессиональное письмо для напоминания об оплате.</p>
+                            <div class="mb-4">
+                                <label for="reminderClientName" class="block text-sm font-medium text-gray-300">Имя клиента:</label>
+                                <input type="text" id="reminderClientName" class="mt-1 block w-full border border-gray-700 rounded-md shadow-sm p-2 focus:ring-amber-500 focus:border-amber-500 bg-gray-700 text-gray-100" placeholder="Иван Иванов">
+                            </div>
+                            <div class="mb-4">
+                                <label for="reminderProjectName" class="block text-sm font-medium text-gray-300">Название проекта:</label>
+                                <input type="text" id="reminderProjectName" class="mt-1 block w-full border border-gray-700 rounded-md shadow-sm p-2 focus:ring-amber-500 focus:border-amber-500 bg-gray-700 text-gray-100" placeholder="Видео для Instagram">
+                            </div>
+                            <div class="mb-4">
+                                <label for="reminderAmount" class="block text-sm font-medium text-gray-300">Сумма к оплате:</label>
+                                <input type="text" id="reminderAmount" class="mt-1 block w-full border border-gray-700 rounded-md shadow-sm p-2 focus:ring-amber-500 focus:border-amber-500 bg-gray-700 text-gray-100" placeholder="500 USD">
+                            </div>
+                            <div class="mb-4">
+                                <label for="reminderDueDate" class="block text-sm font-medium text-gray-300">Дата оплаты (если просрочено):</label>
+                                <input type="text" id="reminderDueDate" class="mt-1 block w-full border border-gray-700 rounded-md shadow-sm p-2 focus:ring-amber-500 focus:border-amber-500 bg-gray-700 text-gray-100" placeholder="15.05.2025">
+                            </div>
+                            <button id="generateReminderBtn" class="bg-amber-500 text-white px-5 py-2 rounded-lg hover:bg-amber-600 transition-colors flex items-center justify-center">
+                                <span id="reminderBtnText">Сгенерировать напоминание ✨</span>
+                                <div id="reminderSpinner" class="hidden animate-spin rounded-full h-5 w-5 border-b-2 border-white ml-2"></div>
+                            </button>
+                            <div id="reminderOutput" class="mt-6 p-4 bg-gray-700 border border-gray-600 rounded-md shadow-inner text-gray-100 hidden whitespace-pre-wrap"></div>
+                            <div id="reminderError" class="mt-2 p-2 bg-red-900 text-red-300 rounded-md hidden"></div>
+                            <button id="saveReminderBtn" class="bg-amber-600 text-white px-4 py-2 rounded-lg hover:bg-amber-700 transition-colors mt-2 hidden">Сохранить напоминание ✨</button>
+                        </div>
+                    `
+                },
+            ];
+
+            const stepsNavEl = document.getElementById('steps-nav');
+            const stepsContentEl = document.getElementById('steps-content');
+
+            stepsData.forEach((step, index) => {
+                const stepItem = document.createElement('div');
+                stepItem.className = 'step-item flex items-center p-3 mb-2 cursor-pointer rounded-lg hover:bg-gray-800 transition-colors'; /* Darker hover for steps */
+                stepItem.dataset.index = index;
+                stepItem.innerHTML = `
+                    <div class="step-circle border-2 border-gray-700 rounded-full w-10 h-10 flex items-center justify-center font-bold text-gray-400 mr-4 transition-colors">${index + 1}</div>
+                    <span class="step-title font-medium text-gray-300 transition-colors">${step.title}</span>
+                `;
+                stepsNavEl.appendChild(stepItem);
+            });
+
+            function displayStep(index) {
+                document.querySelectorAll('.step-item').forEach(item => item.classList.remove('active'));
+                document.querySelector(`.step-item[data-index='${index}']`).classList.add('active');
+                stepsContentEl.innerHTML = stepsData[index].content;
+                stepsContentEl.classList.add('fade-in');
+                setTimeout(() => stepsContentEl.classList.remove('fade-in'), 500);
+
+                // Attach event listener for expansion idea generator if it's "Шаг 1"
+                if (index == 0) {
+                    const generateExpansionBtn = document.getElementById('generateExpansionBtn');
+                    if (generateExpansionBtn) {
+                        generateExpansionBtn.addEventListener('click', generateExpansionIdeas);
+                    }
+                    const saveExpansionBtn = document.getElementById('saveExpansionBtn');
+                    if (saveExpansionBtn) {
+                        saveExpansionBtn.addEventListener('click', () => {
+                            const output = document.getElementById('expansionOutput').textContent;
+                            if (output) saveItemToFirestore('service_expansion_ideas', output, document.getElementById('expansionOutput'), document.getElementById('expansionError'), document.getElementById('expansionSpinner'), document.getElementById('expansionBtnText'));
+                        });
+                    }
+
+                    // New: Market Trend Identifier
+                    const generateTrendsBtn = document.getElementById('generateTrendsBtn');
+                    if (generateTrendsBtn) {
+                        generateTrendsBtn.addEventListener('click', generateMarketTrends);
+                    }
+                    const saveTrendsBtn = document.getElementById('saveTrendsBtn');
+                    if (saveTrendsBtn) {
+                        saveTrendsBtn.addEventListener('click', () => {
+                            const output = document.getElementById('trendsOutput').textContent;
+                            if (output) saveItemToFirestore('market_trends', output, document.getElementById('trendsOutput'), document.getElementById('trendsError'), document.getElementById('trendsSpinner'), document.getElementById('trendsBtnText'));
+                        });
+                    }
+                }
+                // Attach event listener for pitch generator and social media content generator if it's "Шаг 2"
+                if (index == 1) {
+                    const generatePitchBtn = document.getElementById('generatePitchBtn');
+                    if (generatePitchBtn) {
+                        generatePitchBtn.addEventListener('click', generatePitch);
+                    }
+                    const savePitchBtn = document.getElementById('savePitchBtn');
+                    if (savePitchBtn) {
+                        savePitchBtn.addEventListener('click', () => {
+                            const output = document.getElementById('pitchOutput').textContent;
+                            if (output) saveItemToFirestore('pitch', output, document.getElementById('pitchOutput'), document.getElementById('pitchError'), document.getElementById('pitchSpinner'), document.getElementById('pitchBtnText'));
+                        });
+                    }
+
+                    const generateContentBtn = document.getElementById('generateContentBtn');
+                    if (generateContentBtn) {
+                        generateContentBtn.addEventListener('click', generateSocialMediaIdeas);
+                    }
+                    const saveContentBtn = document.getElementById('saveContentBtn');
+                    if (saveContentBtn) {
+                        saveContentBtn.addEventListener('click', () => {
+                            const output = document.getElementById('contentOutput').textContent;
+                            if (output) saveItemToFirestore('social_media_content_ideas', output, document.getElementById('contentOutput'), document.getElementById('contentError'), document.getElementById('contentSpinner'), document.getElementById('contentBtnText'));
+                        });
+                    }
+                }
+                // Attach event listener for interview questions generator if it's "Шаг 3"
+                if (index == 2) {
+                    const generateInterviewQuestionsBtn = document.getElementById('generateInterviewQuestionsBtn');
+                    if (generateInterviewQuestionsBtn) {
+                        generateInterviewQuestionsBtn.addEventListener('click', generateInterviewQuestions);
+                    }
+                    const saveInterviewBtn = document.getElementById('saveInterviewBtn');
+                    if (saveInterviewBtn) {
+                        saveInterviewBtn.addEventListener('click', () => {
+                            const output = document.getElementById('interviewOutput').textContent;
+                            if (output) saveItemToFirestore('interview_questions', output, document.getElementById('interviewOutput'), document.getElementById('interviewError'), document.getElementById('interviewSpinner'), document.getElementById('interviewBtnText'));
+                        });
+                    }
+                }
+                // Attach event listener for project scope generator if it's "Шаг 4"
+                if (index == 3) {
+                    const generateScopeBtn = document.getElementById('generateScopeBtn');
+                    if (generateScopeBtn) {
+                        generateScopeBtn.addEventListener('click', generateProjectScope);
+                    }
+                    const saveScopeBtn = document.getElementById('saveScopeBtn');
+                    if (saveScopeBtn) {
+                        saveScopeBtn.addEventListener('click', () => {
+                            const output = document.getElementById('scopeOutput').textContent;
+                            if (output) saveItemToFirestore('project_scope', output, document.getElementById('scopeOutput'), document.getElementById('scopeError'), document.getElementById('scopeSpinner'), document.getElementById('scopeBtnText'));
+                        });
+                    }
+
+                    // New: Client Communication Assistant
+                    const generateClientResponseBtn = document.getElementById('generateClientResponseBtn');
+                    if (generateClientResponseBtn) {
+                        generateClientResponseBtn.addEventListener('click', generateClientResponse);
+                    }
+                    const saveClientResponseBtn = document.getElementById('saveClientResponseBtn');
+                    if (saveClientResponseBtn) {
+                        saveClientResponseBtn.addEventListener('click', () => {
+                            const output = document.getElementById('clientResponseOutput').textContent;
+                            if (output) saveItemToFirestore('client_response', output, document.getElementById('clientResponseOutput'), document.getElementById('clientResponseError'), document.getElementById('clientResponseSpinner'), document.getElementById('clientResponseBtnText'));
+                        });
+                    }
+
+                    // New: Project Risk Assessor
+                    const riskAssessBtn = document.getElementById('riskAssessBtn');
+                    if (riskAssessBtn) {
+                        riskAssessBtn.addEventListener('click', assessProjectRisks);
+                    }
+                    const saveRiskAssessBtn = document.getElementById('saveRiskAssessBtn');
+                    if (saveRiskAssessBtn) {
+                        saveRiskAssessBtn.addEventListener('click', () => {
+                            const output = document.getElementById('riskAssessOutput').textContent;
+                            if (output) saveItemToFirestore('project_risk_assessment', output, document.getElementById('riskAssessOutput'), document.getElementById('riskAssessError'), document.getElementById('riskAssessSpinner'), document.getElementById('riskAssessBtnText'));
+                        });
+                    }
+                }
+                // Attach event listener for quality checklist generator if it's "Шаг 5"
+                if (index == 4) {
+                    const generateChecklistBtn = document.getElementById('generateChecklistBtn');
+                    if (generateChecklistBtn) {
+                        generateChecklistBtn.addEventListener('click', generateQualityChecklist);
+                    }
+                    const saveChecklistBtn = document.getElementById('saveChecklistBtn');
+                    if (saveChecklistBtn) {
+                        saveChecklistBtn.addEventListener('click', () => {
+                            const output = document.getElementById('checklistOutput').textContent;
+                            if (output) saveItemToFirestore('quality_checklist', output, document.getElementById('checklistOutput'), document.getElementById('checklistError'), document.getElementById('checklistSpinner'), document.getElementById('checklistBtnText'));
+                        });
+                    }
+                }
+                // Attach event listener for contract clause generator and payment reminder generator if it's "Шаг 6"
+                if (index == 5) {
+                    const generateClauseBtn = document.getElementById('generateClauseBtn');
+                    if (generateClauseBtn) {
+                        generateClauseBtn.addEventListener('click', generateContractClause);
+                    }
+                    const saveClauseBtn = document.getElementById('saveClauseBtn');
+                    if (saveClauseBtn) {
+                        saveClauseBtn.addEventListener('click', () => {
+                            const output = document.getElementById('clauseOutput').textContent;
+                            if (output) saveItemToFirestore('contract_clause', output, document.getElementById('clauseOutput'), document.getElementById('clauseError'), document.getElementById('clauseSpinner'), document.getElementById('clauseBtnText'));
+                        });
+                    }
+
+                    const generateReminderBtn = document.getElementById('generateReminderBtn');
+                    if (generateReminderBtn) {
+                        generateReminderBtn.addEventListener('click', generatePaymentReminder);
+                    }
+                    const saveReminderBtn = document.getElementById('saveReminderBtn');
+                    if (saveReminderBtn) {
+                        saveReminderBtn.addEventListener('click', () => {
+                            const output = document.getElementById('reminderOutput').textContent;
+                            if (output) saveItemToFirestore('payment_reminder', output, document.getElementById('reminderOutput'), document.getElementById('reminderError'), document.getElementById('reminderSpinner'), document.getElementById('reminderBtnText'));
+                        });
+                    }
+                }
+            }
+
+            stepsNavEl.addEventListener('click', (e) => {
+                const stepItem = e.target.closest('.step-item');
+                if (stepItem) {
+                    displayStep(stepItem.dataset.index);
+                }
+            });
+
+            displayStep(0);
+            
+            async function generateExpansionIdeas() {
+                const expansionNiche = document.getElementById('expansionNiche').value;
+                const expansionTargetAudience = document.getElementById('expansionTargetAudience').value;
+                const expansionOutput = document.getElementById('expansionOutput');
+                const expansionError = document.getElementById('expansionError');
+                const expansionSpinner = document.getElementById('expansionSpinner');
+                const expansionBtnText = document.getElementById('expansionBtnText');
+                const saveExpansionBtn = document.getElementById('saveExpansionBtn');
+
+                expansionOutput.classList.add('hidden');
+                expansionError.classList.add('hidden');
+                saveExpansionBtn.classList.add('hidden');
+                expansionSpinner.classList.remove('hidden');
+                expansionBtnText.textContent = 'Генерируем...';
+
+                if (!expansionNiche) {
+                    expansionError.textContent = 'Пожалуйста, укажите вашу текущую нишу/услугу.';
+                    expansionError.classList.remove('hidden');
+                    expansionSpinner.classList.add('hidden');
+                    expansionBtnText.textContent = 'Сгенерировать идеи ✨';
+                    return;
+                }
+
+                try {
+                    let chatHistory = [];
+                    const prompt = `Сгенерируй 3-5 идей для расширения фриланс-арбитражного бизнеса. Текущая ниша/услуга: "${expansionNiche}". ${expansionTargetAudience ? `Целевая аудитория: "${expansionTargetAudience}".` : ''} Для каждой идеи предложи краткое описание и потенциальное преимущество.`;
+                    chatHistory.push({ role: "user", parts: [{ text: prompt }] });
+                    const payload = { contents: chatHistory };
+                    const apiKey = "";
+                    const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
+
+                    const response = await fetch(apiUrl, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(payload)
+                    });
+
+                    const result = await response.json();
+
+                    if (result.candidates && result.candidates.length > 0 &&
+                        result.candidates[0].content && result.candidates[0].content.parts &&
+                        result.candidates[0].content.parts.length > 0) {
+                        const text = result.candidates[0].content.parts[0].text;
+                        expansionOutput.textContent = text;
+                        expansionOutput.classList.remove('hidden');
+                        saveExpansionBtn.classList.remove('hidden');
+                    } else {
+                        expansionError.textContent = 'Не удалось сгенерировать идеи. Попробуйте еще раз.';
+                        expansionError.classList.remove('hidden');
+                    }
+                } catch (error) {
+                    console.error('Ошибка при вызове Gemini API для идей расширения:', error);
+                    expansionError.textContent = 'Произошла ошибка при генерации идей. Проверьте консоль.';
+                    expansionError.classList.remove('hidden');
+                } finally {
+                    expansionSpinner.classList.add('hidden');
+                    expansionBtnText.textContent = 'Сгенерировать идеи ✨';
+                }
+            }
+
+            // New LLM Feature: Market Trend Identifier
+            async function generateMarketTrends() {
+                const trendsIndustry = document.getElementById('trendsIndustry').value;
+                const trendsOutput = document.getElementById('trendsOutput');
+                const trendsError = document.getElementById('trendsError');
+                const trendsSpinner = document.getElementById('trendsSpinner');
+                const trendsBtnText = document.getElementById('trendsBtnText');
+                const saveTrendsBtn = document.getElementById('saveTrendsBtn');
+
+                trendsOutput.classList.add('hidden');
+                trendsError.classList.add('hidden');
+                saveTrendsBtn.classList.add('hidden');
+                trendsSpinner.classList.remove('hidden');
+                trendsBtnText.textContent = 'Ищем тренды...';
+
+                if (!trendsIndustry) {
+                    trendsError.textContent = 'Пожалуйста, укажите отрасль для анализа.';
+                    trendsError.classList.remove('hidden');
+                    trendsSpinner.classList.add('hidden');
+                    trendsBtnText.textContent = 'Найти тренды ✨';
+                    return;
+                }
+
+                try {
+                    let chatHistory = [];
+                    const prompt = `Сгенерируй 3-5 актуальных рыночных трендов и популярных услуг в отрасли "${trendsIndustry}", которые могут быть интересны для фриланс-арбитража. Для каждого тренда укажи краткое описание и почему он актуален.`;
+                    chatHistory.push({ role: "user", parts: [{ text: prompt }] });
+                    const payload = { contents: chatHistory };
+                    const apiKey = "";
+                    const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
+
+                    const response = await fetch(apiUrl, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(payload)
+                    });
+
+                    const result = await response.json();
+
+                    if (result.candidates && result.candidates.length > 0 &&
+                        result.candidates[0].content && result.candidates[0].content.parts &&
+                        result.candidates[0].content.parts.length > 0) {
+                        const text = result.candidates[0].content.parts[0].text;
+                        trendsOutput.textContent = text;
+                        trendsOutput.classList.remove('hidden');
+                        saveTrendsBtn.classList.remove('hidden');
+                    } else {
+                        trendsError.textContent = 'Не удалось найти тренды. Попробуйте еще раз.';
+                        trendsError.classList.remove('hidden');
+                    }
+                } catch (error) {
+                    console.error('Ошибка при вызове Gemini API для рыночных трендов:', error);
+                    trendsError.textContent = 'Произошла ошибка при поиске трендов. Проверьте консоль.';
+                    trendsError.classList.remove('hidden');
+                } finally {
+                    trendsSpinner.classList.add('hidden');
+                    trendsBtnText.textContent = 'Найти тренды ✨';
+                }
+            }
+
+
+            async function generatePitch() {
+                const pitchService = document.getElementById('pitchService').value;
+                const pitchIndustry = document.getElementById('pitchIndustry').value;
+                const pitchOutcome = document.getElementById('pitchOutcome').value;
+                const pitchOutput = document.getElementById('pitchOutput');
+                const pitchError = document.getElementById('pitchError');
+                const pitchSpinner = document.getElementById('pitchSpinner');
+                const pitchBtnText = document.getElementById('pitchBtnText');
+                const savePitchBtn = document.getElementById('savePitchBtn');
+
+                pitchOutput.classList.add('hidden');
+                pitchError.classList.add('hidden');
+                savePitchBtn.classList.add('hidden');
+                pitchSpinner.classList.remove('hidden');
+                pitchBtnText.textContent = 'Генерируем...';
+                
+                if (!pitchService || !pitchIndustry || !pitchOutcome) {
+                    pitchError.textContent = 'Пожалуйста, заполните все поля для генерации питча.';
+                    pitchError.classList.remove('hidden');
+                    pitchSpinner.classList.add('hidden');
+                    pitchBtnText.textContent = 'Сгенерировать питч ✨';
+                    return;
+                }
+
+                try {
+                    let chatHistory = [];
+                    const prompt = `Сгенерируй короткое, убедительное коммерческое предложение (питч) для клиента. Услуга: ${pitchService}. Индустрия клиента: ${pitchIndustry}. Желаемый результат для клиента: ${pitchOutcome}. Длина: 3-5 предложений.`;
+                    chatHistory.push({ role: "user", parts: [{ text: prompt }] });
+                    const payload = { contents: chatHistory };
+                    const apiKey = "";
+                    const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
+
+                    const response = await fetch(apiUrl, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(payload)
+                    });
+
+                    const result = await response.json();
+
+                    if (result.candidates && result.candidates.length > 0 &&
+                        result.candidates[0].content && result.candidates[0].content.parts &&
+                        result.candidates[0].content.parts.length > 0) {
+                        const text = result.candidates[0].content.parts[0].text;
+                        pitchOutput.textContent = text;
+                        pitchOutput.classList.remove('hidden');
+                        savePitchBtn.classList.remove('hidden');
+                    } else {
+                        pitchError.textContent = 'Не удалось сгенерировать питч. Попробуйте еще раз.';
+                        pitchError.classList.remove('hidden');
+                    }
+                } catch (error) {
+                    console.error('Ошибка при вызове Gemini API:', error);
+                    pitchError.textContent = 'Произошла ошибка при генерации питча. Проверьте консоль.';
+                    pitchError.classList.remove('hidden');
+                } finally {
+                    pitchSpinner.classList.add('hidden');
+                    pitchBtnText.textContent = 'Сгенерировать питч ✨';
+                }
+            }
+
+            async function generateProjectScope() {
+                const projectRequest = document.getElementById('projectRequest').value;
+                const projectServiceType = document.getElementById('projectServiceType').value;
+                const scopeOutput = document.getElementById('scopeOutput');
+                const scopeError = document.getElementById('scopeError');
+                const scopeSpinner = document.getElementById('scopeSpinner');
+                const scopeBtnText = document.getElementById('scopeBtnText');
+                const saveScopeBtn = document.getElementById('saveScopeBtn');
+
+                scopeOutput.classList.add('hidden');
+                scopeError.classList.add('hidden');
+                saveScopeBtn.classList.add('hidden');
+                scopeSpinner.classList.remove('hidden');
+                scopeBtnText.textContent = 'Генерируем...';
+
+                if (!projectRequest || !projectServiceType) {
+                    scopeError.textContent = 'Пожалуйста, заполните все поля для генерации брифа.';
+                    scopeError.classList.remove('hidden');
+                    scopeSpinner.classList.add('hidden');
+                    scopeBtnText.textContent = 'Сгенерировать бриф ✨';
+                    return;
+                }
+
+                try {
+                    let chatHistory = [];
+                    const prompt = `Сгенерируй подробное техническое задание (бриф) для фрилансера на основе следующего запроса клиента и типа услуги. Включи разделы: "Обзор проекта", "Цели", "Требования к содержанию/функционалу", "Технические требования (если применимо)", "Сроки", "Формат сдачи", "Дополнительные примечания". Запрос клиента: "${projectRequest}". Тип услуги: "${projectServiceType}".`;
+                    chatHistory.push({ role: "user", parts: [{ text: prompt }] });
+                    const payload = { contents: chatHistory };
+                    const apiKey = "";
+                    const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
+
+                    const response = await fetch(apiUrl, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(payload)
+                    });
+
+                    const result = await response.json();
+
+                    if (result.candidates && result.candidates.length > 0 &&
+                        result.candidates[0].content && result.candidates[0].content.parts &&
+                        result.candidates[0].content.parts.length > 0) {
+                        const text = result.candidates[0].content.parts[0].text;
+                        scopeOutput.textContent = text;
+                        scopeOutput.classList.remove('hidden');
+                        saveScopeBtn.classList.remove('hidden');
+                    } else {
+                        scopeError.textContent = 'Не удалось сгенерировать бриф. Попробуйте еще раз.';
+                        scopeError.classList.remove('hidden');
+                    }
+                } catch (error) {
+                    console.error('Ошибка при вызове Gemini API для брифа:', error);
+                    scopeError.textContent = 'Произошла ошибка при генерации брифа. Проверьте консоль.';
+                    scopeError.classList.remove('hidden');
+                } finally {
+                    scopeSpinner.classList.add('hidden');
+                    scopeBtnText.textContent = 'Сгенерировать бриф ✨';
+                }
+            }
+
+            // New LLM Feature: Client Communication Assistant
+            async function generateClientResponse() {
+                const clientQuery = document.getElementById('clientQuery').value;
+                const desiredTone = document.getElementById('desiredTone').value;
+                const clientResponseOutput = document.getElementById('clientResponseOutput');
+                const clientResponseError = document.getElementById('clientResponseError');
+                const clientResponseSpinner = document.getElementById('clientResponseSpinner');
+                const clientResponseBtnText = document.getElementById('clientResponseBtnText');
+                const saveClientResponseBtn = document.getElementById('saveClientResponseBtn');
+
+                clientResponseOutput.classList.add('hidden');
+                clientResponseError.classList.add('hidden');
+                saveClientResponseBtn.classList.add('hidden');
+                clientResponseSpinner.classList.remove('hidden');
+                clientResponseBtnText.textContent = 'Генерируем ответ...';
+
+                if (!clientQuery || !desiredTone) {
+                    clientResponseError.textContent = 'Пожалуйста, заполните все поля для генерации ответа.';
+                    clientResponseError.classList.remove('hidden');
+                    clientResponseSpinner.classList.add('hidden');
+                    clientResponseBtnText.textContent = 'Сгенерировать ответ ✨';
+                    return;
+                }
+
+                try {
+                    let chatHistory = [];
+                    const prompt = `Сгенерируй профессиональный ответ на следующий запрос/отзыв клиента. Запрос/Отзыв: "${clientQuery}". Желаемый тон ответа: "${desiredTone}". Ответ должен быть кратким и по существу.`;
+                    chatHistory.push({ role: "user", parts: [{ text: prompt }] });
+                    const payload = { contents: chatHistory };
+                    const apiKey = "";
+                    const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
+
+                    const response = await fetch(apiUrl, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(payload)
+                    });
+
+                    const result = await response.json();
+
+                    if (result.candidates && result.candidates.length > 0 &&
+                        result.candidates[0].content && result.candidates[0].content.parts &&
+                        result.candidates[0].content.parts.length > 0) {
+                        const text = result.candidates[0].content.parts[0].text;
+                        clientResponseOutput.textContent = text;
+                        clientResponseOutput.classList.remove('hidden');
+                        saveClientResponseBtn.classList.remove('hidden');
+                    } else {
+                        clientResponseError.textContent = 'Не удалось сгенерировать ответ. Попробуйте еще раз.';
+                        clientResponseError.classList.remove('hidden');
+                    }
+                } catch (error) {
+                    console.error('Ошибка при вызове Gemini API для ответа клиенту:', error);
+                    clientResponseError.textContent = 'Произошла ошибка при генерации ответа. Проверьте консоль.';
+                    clientResponseError.classList.remove('hidden');
+                } finally {
+                    clientResponseSpinner.classList.add('hidden');
+                    clientResponseBtnText.textContent = 'Сгенерировать ответ ✨';
+                }
+            }
+
+            // New LLM Feature: Project Risk Assessor
+            async function assessProjectRisks() {
+                const riskProjectDescription = document.getElementById('riskProjectDescription').value;
+                const riskClientClarity = document.getElementById('riskClientClarity').value;
+                const riskFreelancerExperience = document.getElementById('riskFreelancerExperience').value;
+                const riskAssessOutput = document.getElementById('riskAssessOutput');
+                const riskAssessError = document.getElementById('riskAssessError');
+                const riskAssessSpinner = document.getElementById('riskAssessSpinner');
+                const riskAssessBtnText = document.getElementById('riskAssessBtnText');
+                const saveRiskAssessBtn = document.getElementById('saveRiskAssessBtn');
+
+                riskAssessOutput.classList.add('hidden');
+                riskAssessError.classList.add('hidden');
+                saveRiskAssessBtn.classList.add('hidden');
+                riskAssessSpinner.classList.remove('hidden');
+                riskAssessBtnText.textContent = 'Оцениваем...';
+
+                if (!riskProjectDescription || !riskClientClarity || !riskFreelancerExperience) {
+                    riskAssessError.textContent = 'Пожалуйста, заполните все поля для оценки рисков.';
+                    riskAssessError.classList.remove('hidden');
+                    riskAssessSpinner.classList.add('hidden');
+                    riskAssessBtnText.textContent = 'Оценить риски ✨';
+                    return;
+                }
+
+                try {
+                    let chatHistory = [];
+                    const prompt = `Оцени потенциальные риски для следующего проекта и предложи стратегии их снижения. Описание проекта: "${riskProjectDescription}". Четкость брифа от клиента: "${riskClientClarity}". Опыт нанятого фрилансера: "${riskFreelancerExperience}". Выдели основные риски и для каждого предложи 1-2 способа минимизации.`;
+                    chatHistory.push({ role: "user", parts: [{ text: prompt }] });
+                    const payload = { contents: chatHistory };
+                    const apiKey = "";
+                    const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
+
+                    const response = await fetch(apiUrl, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(payload)
+                    });
+
+                    const result = await response.json();
+
+                    if (result.candidates && result.candidates.length > 0 &&
+                        result.candidates[0].content && result.candidates[0].content.parts &&
+                        result.candidates[0].content.parts.length > 0) {
+                        const text = result.candidates[0].content.parts[0].text;
+                        riskAssessOutput.textContent = text;
+                        riskAssessOutput.classList.remove('hidden');
+                        saveRiskAssessBtn.classList.remove('hidden');
+                    } else {
+                        riskAssessError.textContent = 'Не удалось оценить риски. Попробуйте еще раз.';
+                        riskAssessError.classList.remove('hidden');
+                    }
+                } catch (error) {
+                    console.error('Ошибка при вызове Gemini API для оценки рисков:', error);
+                    riskAssessError.textContent = 'Произошла ошибка при оценке рисков. Проверьте консоль.';
+                    riskAssessError.classList.remove('hidden');
+                } finally {
+                    riskAssessSpinner.classList.add('hidden');
+                    riskAssessBtnText.textContent = 'Оценить риски ✨';
+                }
+            }
+
+
+            async function generateQualityChecklist() {
+                const checklistService = document.getElementById('checklistService').value;
+                const checklistKeyAspects = document.getElementById('checklistKeyAspects').value;
+                const checklistOutput = document.getElementById('checklistOutput');
+                const checklistError = document.getElementById('checklistError');
+                const checklistSpinner = document.getElementById('checklistSpinner');
+                const checklistBtnText = document.getElementById('checklistBtnText');
+                const saveChecklistBtn = document.getElementById('saveChecklistBtn');
+
+                checklistOutput.classList.add('hidden');
+                checklistError.classList.add('hidden');
+                saveChecklistBtn.classList.add('hidden');
+                checklistSpinner.classList.remove('hidden');
+                checklistBtnText.textContent = 'Генерируем...';
+
+                if (!checklistService || !checklistKeyAspects) {
+                    checklistError.textContent = 'Пожалуйста, заполните все поля для генерации чек-листа.';
+                    checklistError.classList.remove('hidden');
+                    checklistSpinner.classList.add('hidden');
+                    checklistBtnText.textContent = 'Сгенерировать чек-лист ✨';
+                    return;
+                }
+
+                try {
+                    let chatHistory = [];
+                    const prompt = `Сгенерируй детальный чек-лист для проверки качества выполненной работы. Тип услуги: "${checklistService}". Основные аспекты для проверки: "${checklistKeyAspects}". Сформируй список пунктов для проверки.`;
+                    chatHistory.push({ role: "user", parts: [{ text: prompt }] });
+                    const payload = { contents: chatHistory };
+                    const apiKey = "";
+                    const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
+
+                    const response = await fetch(apiUrl, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(payload)
+                    });
+
+                    const result = await response.json();
+
+                    if (result.candidates && result.candidates.length > 0 &&
+                        result.candidates[0].content && result.candidates[0].content.parts &&
+                        result.candidates[0].content.parts.length > 0) {
+                        const text = result.candidates[0].content.parts[0].text;
+                        checklistOutput.textContent = text;
+                        checklistOutput.classList.remove('hidden');
+                        saveChecklistBtn.classList.remove('hidden');
+                    } else {
+                        checklistError.textContent = 'Не удалось сгенерировать чек-лист. Попробуйте еще раз.';
+                        checklistError.classList.remove('hidden');
+                    }
+                } catch (error) {
+                    console.error('Ошибка при вызове Gemini API для чек-листа:', error);
+                    checklistError.textContent = 'Произошла ошибка при генерации чек-листа. Проверьте консоль.';
+                    checklistError.classList.remove('hidden');
+                } finally {
+                    checklistSpinner.classList.add('hidden');
+                    checklistBtnText.textContent = 'Сгенерировать чек-лист ✨';
+                }
+            }
+
+            async function generateInterviewQuestions() {
+                const interviewService = document.getElementById('interviewService').value;
+                const interviewSkills = document.getElementById('interviewSkills').value;
+                const interviewOutput = document.getElementById('interviewOutput');
+                const interviewError = document.getElementById('interviewError');
+                const interviewSpinner = document.getElementById('interviewSpinner');
+                const interviewBtnText = document.getElementById('interviewBtnText');
+                const saveInterviewBtn = document.getElementById('saveInterviewBtn');
+
+                interviewOutput.classList.add('hidden');
+                interviewError.classList.add('hidden');
+                saveInterviewBtn.classList.add('hidden');
+                interviewSpinner.classList.remove('hidden');
+                interviewBtnText.textContent = 'Генерируем...';
+
+                if (!interviewService || !interviewSkills) {
+                    interviewError.textContent = 'Пожалуйста, заполните все поля для генерации вопросов.';
+                    interviewError.classList.remove('hidden');
+                    interviewSpinner.classList.add('hidden');
+                    interviewBtnText.textContent = 'Сгенерировать вопросы ✨';
+                    return;
+                }
+
+                try {
+                    let chatHistory = [];
+                    const prompt = `Сгенерируй 5-7 вопросов для интервью с фрилансером. Тип услуги: "${interviewService}". Основные навыки, которые нужно проверить: "${interviewSkills}". Сфокусируйся на практическом опыте и решении проблем.`;
+                    chatHistory.push({ role: "user", parts: [{ text: prompt }] });
+                    const payload = { contents: chatHistory };
+                    const apiKey = "";
+                    const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
+
+                    const response = await fetch(apiUrl, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(payload)
+                    });
+
+                    const result = await response.json();
+
+                    if (result.candidates && result.candidates.length > 0 &&
+                        result.candidates[0].content && result.candidates[0].content.parts &&
+                        result.candidates[0].content.parts.length > 0) {
+                        const text = result.candidates[0].content.parts[0].text;
+                        interviewOutput.textContent = text;
+                        interviewOutput.classList.remove('hidden');
+                        saveInterviewBtn.classList.remove('hidden');
+                    } else {
+                        interviewError.textContent = 'Не удалось сгенерировать вопросы. Попробуйте еще раз.';
+                        interviewError.classList.remove('hidden');
+                    }
+                } catch (error) {
+                    console.error('Ошибка при вызове Gemini API для вопросов интервью:', error);
+                    interviewError.textContent = 'Произошла ошибка при генерации вопросов. Проверьте консоль.';
+                    interviewError.classList.remove('hidden');
+                } finally {
+                    interviewSpinner.classList.add('hidden');
+                    interviewBtnText.textContent = 'Сгенерировать вопросы ✨';
+                }
+            }
+
+            async function generateContractClause() {
+                const clauseType = document.getElementById('clauseType').value;
+                const clauseContext = document.getElementById('clauseContext').value;
+                const clauseOutput = document.getElementById('clauseOutput');
+                const clauseError = document.getElementById('clauseError');
+                const clauseSpinner = document.getElementById('clauseSpinner');
+                const clauseBtnText = document.getElementById('clauseBtnText');
+                const saveClauseBtn = document.getElementById('saveClauseBtn');
+
+                clauseOutput.classList.add('hidden');
+                clauseError.classList.add('hidden');
+                saveClauseBtn.classList.add('hidden');
+                clauseSpinner.classList.remove('hidden');
+                clauseBtnText.textContent = 'Генерируем...';
+
+                if (!clauseType || !clauseContext) {
+                    clauseError.textContent = 'Пожалуйста, заполните все поля для генерации положения.';
+                    clauseError.classList.remove('hidden');
+                    clauseSpinner.classList.add('hidden');
+                    clauseBtnText.textContent = 'Сгенерировать положение ✨';
+                    return;
+                }
+
+                try {
+                    let chatHistory = [];
+                    const prompt = `Сгенерируй черновик договорного положения. Тип положения: "${clauseType}". Контекст: "${clauseContext}". Сформируй краткий, но полный текст положения.`;
+                    chatHistory.push({ role: "user", parts: [{ text: prompt }] });
+                    const payload = { contents: chatHistory };
+                    const apiKey = "";
+                    const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
+
+                    const response = await fetch(apiUrl, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(payload)
+                    });
+
+                    const result = await response.json();
+
+                    if (result.candidates && result.candidates.length > 0 &&
+                        result.candidates[0].content && result.candidates[0].content.parts &&
+                        result.candidates[0].content.parts.length > 0) {
+                        const text = result.candidates[0].content.parts[0].text;
+                        clauseOutput.textContent = text;
+                        clauseOutput.classList.remove('hidden');
+                        saveClauseBtn.classList.remove('hidden');
+                    } else {
+                        clauseError.textContent = 'Не удалось сгенерировать положение. Попробуйте еще раз.';
+                        clauseError.classList.remove('hidden');
+                    }
+                } catch (error) {
+                    console.error('Ошибка при вызове Gemini API для положения:', error);
+                    clauseError.textContent = 'Произошла ошибка при генерации положения. Проверьте консоль.';
+                    clauseError.classList.remove('hidden');
+                } finally {
+                    clauseSpinner.classList.add('hidden');
+                    clauseBtnText.textContent = 'Сгенерировать положение ✨';
+                }
+            }
+
+            async function generateSocialMediaIdeas() {
+                const contentPlatform = document.getElementById('contentPlatform').value;
+                const contentService = document.getElementById('contentService').value;
+                const contentAudience = document.getElementById('contentAudience').value;
+                const contentOutput = document.getElementById('contentOutput');
+                const contentError = document.getElementById('contentError');
+                const contentSpinner = document.getElementById('contentSpinner');
+                const contentBtnText = document.getElementById('contentBtnText');
+                const saveContentBtn = document.getElementById('saveContentBtn');
+
+                contentOutput.classList.add('hidden');
+                contentError.classList.add('hidden');
+                saveContentBtn.classList.add('hidden');
+                contentSpinner.classList.remove('hidden');
+                contentBtnText.textContent = 'Генерируем...';
+
+                if (!contentPlatform || !contentService || !contentAudience) {
+                    contentError.textContent = 'Пожалуйста, заполните все поля для генерации идей контента.';
+                    contentError.classList.remove('hidden');
+                    contentSpinner.classList.add('hidden');
+                    contentBtnText.textContent = 'Сгенерировать идеи ✨';
+                    return;
+                }
+
+                try {
+                    let chatHistory = [];
+                    const prompt = `Сгенерируй 3-5 креативных идей для контента в социальных сетях. Платформа: "${contentPlatform}". Услуга, которую я предлагаю: "${contentService}". Целевая аудитория: "${contentAudience}". Для каждой идеи предложи краткое описание и возможный формат.`;
+                    chatHistory.push({ role: "user", parts: [{ text: prompt }] });
+                    const payload = { contents: chatHistory };
+                    const apiKey = "";
+                    const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
+
+                    const response = await fetch(apiUrl, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(payload)
+                    });
+
+                    const result = await response.json();
+
+                    if (result.candidates && result.candidates.length > 0 &&
+                        result.candidates[0].content && result.candidates[0].content.parts &&
+                        result.candidates[0].content.parts.length > 0) {
+                        const text = result.candidates[0].content.parts[0].text;
+                        contentOutput.textContent = text;
+                        contentOutput.classList.remove('hidden');
+                        saveContentBtn.classList.remove('hidden');
+                    } else {
+                        contentError.textContent = 'Не удалось сгенерировать идеи контента. Попробуйте еще раз.';
+                        contentError.classList.remove('hidden');
+                    }
+                } catch (error) {
+                    console.error('Ошибка при вызове Gemini API для идей контента:', error);
+                    contentError.textContent = 'Произошла ошибка при генерации идей контента. Проверьте консоль.';
+                    contentError.classList.remove('hidden');
+                } finally {
+                    contentSpinner.classList.add('hidden');
+                    contentBtnText.textContent = 'Сгенерировать идеи ✨';
+                }
+            }
+
+            async function generatePaymentReminder() {
+                const clientName = document.getElementById('reminderClientName').value;
+                const projectName = document.getElementById('reminderProjectName').value;
+                const amount = document.getElementById('reminderAmount').value;
+                const dueDate = document.getElementById('reminderDueDate').value;
+                const reminderOutput = document.getElementById('reminderOutput');
+                const reminderError = document.getElementById('reminderError');
+                const reminderSpinner = document.getElementById('reminderSpinner');
+                const reminderBtnText = document.getElementById('reminderBtnText');
+                const saveReminderBtn = document.getElementById('saveReminderBtn');
+
+                reminderOutput.classList.add('hidden');
+                reminderError.classList.add('hidden');
+                saveReminderBtn.classList.add('hidden');
+                reminderSpinner.classList.remove('hidden');
+                reminderBtnText.textContent = 'Генерируем...';
+
+                if (!clientName || !projectName || !amount) {
+                    reminderError.textContent = 'Пожалуйста, заполните поля "Имя клиента", "Название проекта" и "Сумма к оплате".';
+                    reminderError.classList.remove('hidden');
+                    reminderSpinner.classList.add('hidden');
+                    reminderBtnText.textContent = 'Сгенерировать напоминание ✨';
+                    return;
+                }
+
+                try {
+                    let chatHistory = [];
+                    const prompt = `Сгенерируй вежливое, но четкое письмо-напоминание об оплате.
+                    Имя клиента: "${clientName}".
+                    Название проекта: "${projectName}".
+                    Сумма к оплате: "${amount}".
+                    ${dueDate ? `Дата оплаты: "${dueDate}". ` : ''}
+                    Если дата оплаты указана, а письмо отправляется после неё, укажи, что платеж просрочен.
+                    Письмо должно быть коротким, профессиональным и призывать к действию (оплате).`;
+                    chatHistory.push({ role: "user", parts: [{ text: prompt }] });
+                    const payload = { contents: chatHistory };
+                    const apiKey = "";
+                    const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
+
+                    const response = await fetch(apiUrl, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(payload)
+                    });
+
+                    const result = await response.json();
+
+                    if (result.candidates && result.candidates.length > 0 &&
+                        result.candidates[0].content && result.candidates[0].content.parts &&
+                        result.candidates[0].content.parts.length > 0) {
+                        const text = result.candidates[0].content.parts[0].text;
+                        reminderOutput.textContent = text;
+                        reminderOutput.classList.remove('hidden');
+                        saveReminderBtn.classList.remove('hidden');
+                    } else {
+                        reminderError.textContent = 'Не удалось сгенерировать напоминание. Попробуйте еще раз.';
+                        reminderError.classList.remove('hidden');
+                    }
+                } catch (error) {
+                    console.error('Ошибка при вызове Gemini API для напоминания об оплате:', error);
+                    reminderError.textContent = 'Произошла ошибка при генерации напоминания. Проверьте консоль.';
+                    reminderError.classList.remove('hidden');
+                } finally {
+                    reminderSpinner.classList.add('hidden');
+                    reminderBtnText.textContent = 'Сгенерировать напоминание ✨';
+                }
+            }
+        });
+    </script>
+</body>
+</html>
