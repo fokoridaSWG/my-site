@@ -56,6 +56,22 @@
         }
     </style>
 </head>
+<script type="module">
+  // Firebase SDKs
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+
+  const firebaseConfig = {
+    apiKey: "AlzaSyCukYpz0lTZWXnH5444TCLzPcwNENK1Xn8",
+    authDomain: "gidarb.firebaseapp.com",
+    projectId: "gidarb",
+    storageBucket: "gidarb.appspot.com",
+    messagingSenderId: "46566926197",
+    appId: "46566926197"
+  };
+
+  // Инициализация Firebase
+  const app = initializeApp(firebaseConfig);
+</script>
 
 <body class="text-gray-300">
 
@@ -183,6 +199,10 @@
                     <p class="text-lg text-gray-400 max-w-3xl mx-auto">Здесь вы можете просматривать и управлять всеми сгенерированными и сохраненными элементами, а также управлять вашей командой и проектами.</p>
                 </div>
                 
+                <div id="firebaseStatusMessage" class="mt-4 p-4 bg-red-900 text-red-300 rounded-md hidden">
+                    <p><strong>Внимание:</strong> Firebase не настроен. Функции личного кабинета (вход, сохранение данных, прайс-лист, исполнители, работы, занятость) не будут работать. Пожалуйста, убедитесь, что ваш сайт правильно привязан к проекту Firebase.</p>
+                </div>
+
                 <div class="bg-gray-900 p-6 md:p-8 rounded-lg shadow-lg">
                     <p class="text-sm text-gray-400 mb-4">Ваш ID пользователя: <span id="currentUserId" class="font-mono text-amber-400">Загрузка...</span></p>
                     
@@ -579,7 +599,7 @@
                         // User is signed out or not authenticated yet
                         loggedInUserDiv.classList.add('hidden');
                         loggedInUserDiv.classList.remove('flex');
-                        openAuthModalBtn.classList.remove('hidden'); // Show login/register button
+                        openAuthModalBtn.classList.remove('hidden');
 
                         // If not explicitly signed in (or was anonymous and then signed out), try anonymous sign-in
                         try {
@@ -629,9 +649,17 @@
                 console.error("Firebase config не доступен. Личный кабинет и аутентификация будут недоступны.");
                 document.getElementById('savedItemsList').innerHTML = '<p class="text-red-300">Личный кабинет недоступен: Firebase не настроен.</p>';
                 document.getElementById('currentUserId').textContent = 'Недоступно (Без Firebase)';
+                
+                // Show the specific Firebase status message
+                document.getElementById('firebaseStatusMessage').classList.remove('hidden');
+                
                 // Hide authentication controls and all personal cabinet sections if Firebase is not available
                 document.getElementById('authControls').classList.add('hidden');
-                document.getElementById('personal-cabinet').querySelectorAll('h3, .bg-gray-800').forEach(el => el.classList.add('hidden'));
+                // Select specific input/button blocks in personal cabinet to hide them
+                document.querySelectorAll('#personal-cabinet .bg-gray-800').forEach(el => el.classList.add('hidden'));
+                // Hide all h3s inside personal-cabinet except the main section title (h2)
+                document.querySelectorAll('#personal-cabinet h3:not(#personal-cabinet h2)').forEach(el => el.classList.add('hidden'));
+
                 isAuthReady = true; // Mark as ready even without Firebase to unblock other JS if any
             }
 
@@ -1058,7 +1086,7 @@
                                 <td class="py-2 px-4 border-b border-gray-700 text-gray-300">$${data.costPaid.toFixed(2)}</td>
                                 <td class="py-2 px-4 border-b border-gray-700 text-gray-300">$${data.priceCharged.toFixed(2)}</td>
                                 <td class="py-2 px-4 border-b border-gray-700 text-gray-300">$${data.profit.toFixed(2)}</td>
-                                <td class="py-2 px-4 border-b border-gray-700 text-center">
+                                <td class="py-2 px-4 border-b border-gray-700 text-sm font-semibold text-gray-300">
                                     <button class="delete-item-btn bg-red-900 text-red-300 px-3 py-1 rounded-full text-sm hover:bg-red-800 transition-colors" data-id="${docSnap.id}" data-collection="completed_works">Удалить</button>
                                 </td>
                             `;
@@ -1247,7 +1275,17 @@
                     demand: 'Один из самых быстрорастущих рынков. Спрос на адаптивный дизайн, PWA и интеграцию с ИИ.',
                     services: 'Сайты, лендинги, поддержка, кастомный код.',
                     cost: 'От $2900/мес за джуниора.',
-                    price: '$40-75/час, эксперты до $300/час.'
+                    price: '$40-75/час, эксперты до $300/час.',
+                    guide: `
+                        <h6 class="text-lg font-semibold text-amber-300 mb-2">Гайд по веб-разработке:</h6>
+                        <ul class="list-disc list-inside text-gray-400">
+                            <li>**Сфокусируйтесь на узкой нише:** Например, "сайты для малого бизнеса" или "лендинги для SaaS".</li>
+                            <li>**Используйте шаблоны и конструкторы:** Это позволит быстро запускать проекты с минимальными затратами.</li>
+                            <li>**Найдите надежных разработчиков:** Ищите их на Upwork/Fiverr с хорошими отзывами и портфолио. Начните с небольших тестовых задач.</li>
+                            <li>**Предлагайте пакеты услуг:** Например, "Базовый сайт", "Сайт с SEO-оптимизацией", "Сайт с e-commerce".</li>
+                            <li>**Обучайтесь основам SEO и UX:** Это добавит ценности вашим услугам и позволит эффективнее общаться с разработчиками.</li>
+                        </ul>
+                    `
                 },
                 'copywriting': {
                     title: 'Копирайтинг',
@@ -1255,7 +1293,17 @@
                     demand: 'Рынок достигнет $42 млрд к 2030. Спрос на SEO-контент, email-маркетинг и нишевые тексты.',
                     services: 'Тексты для сайтов, посты в блог, email-рассылки, реклама.',
                     cost: 'От $95 за email-кампанию, $120 за пост.',
-                    price: '$50-1000 за пост, до $2/слово у экспертов.'
+                    price: '$50-1000 за пост, до $2/слово у экспертов.',
+                    guide: `
+                        <h6 class="text-lg font-semibold text-amber-300 mb-2">Гайд по копирайтингу:</h6>
+                        <ul class="list-disc list-inside text-gray-400">
+                            <li>**Специализируйтесь:** Выберите конкретный тип контента (например, SEO-статьи, продающие тексты для e-commerce) или индустрию.</li>
+                            <li>**Создайте сильное портфолио:** Даже если это ваши личные проекты, покажите, что вы можете писать.</li>
+                            <li>**Ищите авторов с пониманием SEO:** Это очень ценится клиентами.</li>
+                            <li>**Разработайте четкий бриф:** Для каждого заказа четко описывайте цель, ЦА, ключевые слова, желаемый тон и объем.</li>
+                            <li>**Контролируйте качество:** Проверяйте тексты на уникальность, грамотность и соответствие брифу.</li>
+                        </ul>
+                    `
                 },
                 'design': {
                     title: 'Графический дизайн',
@@ -1263,7 +1311,17 @@
                     demand: 'Рынок достигнет $81 млрд к 2030. Рост из-за цифрового контента и e-commerce.',
                     services: 'Логотипы, фирменный стиль, UI/UX, маркетинг-киты.',
                     cost: 'Пакеты от $299/мес. Лого от $70.',
-                    price: '$25-75/час, агентства $150-300/час.'
+                    price: '$25-75/час, агентства $150-300/час.',
+                    guide: `
+                        <h6 class="text-lg font-semibold text-amber-300 mb-2">Гайд по графическому дизайну:</h6>
+                        <ul class="list-disc list-inside text-gray-400">
+                            <li>**Освойте основы дизайна:** Понимайте композицию, типографику, цветоведение.</li>
+                            <li>**Сосредоточьтесь на брендинге:** Логотипы и фирменный стиль — это то, что нужно каждому бизнесу.</li>
+                            <li>**Используйте готовые ресурсы:** Приобретайте качественные шаблоны и стоковые элементы для ускорения работы.</li>
+                            <li>**Найдите талантливых дизайнеров на биржах:** Убедитесь, что их стиль соответствует вашему видению.</li>
+                            <li>**Четко коммуницируйте ожидания:** Предоставляйте дизайнерам детальные брифы и референсы.</li>
+                        </ul>
+                    `
                 },
                 'seo': {
                     title: 'SEO',
@@ -1271,7 +1329,17 @@
                     demand: '68% онлайн-опыта начинается с поиска. SEO - главный приоритет для 61% маркетологов.',
                     services: 'Технический аудит, линкбилдинг, локальное SEO, контент.',
                     cost: 'От $499/мес за локальное SEO.',
-                    price: '$50-200/час для фрилансеров.'
+                    price: '$50-200/час для фрилансеров.',
+                    guide: `
+                        <h6 class="text-lg font-semibold text-amber-300 mb-2">Гайд по SEO:</h6>
+                        <ul class="list-disc list-inside text-gray-400">
+                            <li>**Изучите основы SEO:** Понимание ключевых факторов ранжирования поможет вам продавать и управлять проектами.</li>
+                            <li>**Предлагайте пакеты SEO-услуг:** Например, "Базовый аудит", "Ежемесячная оптимизация", "Линкбилдинг".</li>
+                            <li>**Найдите опытных SEO-специалистов:** Проверьте их кейсы и отзывы.</li>
+                            <li>**Используйте инструменты SEO:** Google Keyword Planner, SEMrush, Ahrefs помогут в анализе и мониторинге.</li>
+                            <li>**Фокусируйтесь на измеримых результатах:** Показывайте клиентам рост трафика, позиций и конверсий.</li>
+                        </ul>
+                    `
                 },
                 'va': {
                     title: 'Виртуальный ассистент',
@@ -1279,7 +1347,17 @@
                     demand: 'Рынок вырастет до $23 млрд к 2033 из-за спроса на удаленную работу.',
                     services: 'Админ. задачи, SMM, управление проектами, поддержка.',
                     cost: 'Общие VA от $15-50/час.',
-                    price: 'Специалисты по маркетингу $30-100/час.'
+                    price: 'Специалисты по маркетингу $30-100/час.',
+                    guide: `
+                        <h6 class="text-lg font-semibold text-amber-300 mb-2">Гайд по виртуальной помощи:</h6>
+                        <ul class="list-disc list-inside text-gray-400">
+                            <li>**Определите ключевые задачи:** Что именно ваш VA будет делать? (например, управление почтой, SMM, ввод данных).</li>
+                            <li>**Создайте систему обучения:** Подготовьте инструкции и шаблоны для вашего VA.</li>
+                            <li>**Найдите ассистента с хорошими навыками коммуникации:** Это критически важно для удаленной работы.</li>
+                            <li>**Установите четкие дедлайны и приоритеты:** Регулярно проверяйте прогресс.</li>
+                            <li>**Начните с небольшого объема:** Постепенно увеличивайте нагрузку по мере того, как выстраиваются доверие и эффективность.</li>
+                        </ul>
+                    `
                 }
             };
             
@@ -1294,7 +1372,8 @@
                         <p class="text-gray-400 mb-2"><strong>Спрос:</strong> ${niche.demand}</p>
                         <p class="text-gray-400 mb-2"><strong>Услуги:</strong> ${niche.services}</p>
                         <p class="text-gray-400 mb-2"><strong>Стоимость аутсорса:</strong> ${niche.cost}</p>
-                        <p class="text-gray-400"><strong>Цена для клиента:</strong> ${niche.price}</p>
+                        <p class="text-gray-400 mb-6"><strong>Цена для клиента:</strong> ${niche.price}</p>
+                        ${niche.guide} <!-- Add the guide content here -->
                     </div>
                     <div class="md:col-span-3 flex items-center justify-center fade-in">
                         <div class="w-full">
